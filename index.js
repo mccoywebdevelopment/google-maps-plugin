@@ -78,11 +78,10 @@ function getObject(address,link,key)
 app.post('/main',function(req,res){
 	var address=req.body.address;
 	var link=req.body.link;
-	//var locations=getObject(address,link,key);
-	//res.redirect("/map");
-
+	var objects=[];
+	var i=0;
 	async.forEachOf(address,(value,key,callback)=>{
-		var objects=[];
+		console.log("inside");
 
 		var url = "https://maps.googleapis.com"+
 			"/maps/api/geocode/json?address="+address+"&key="+key;
@@ -95,13 +94,22 @@ app.post('/main',function(req,res){
 		       location="inside";
 		       objects.push(location);
 		    }
-		    callback(objects);
+		    else if(error)
+		    {
+		    	console.log(error);
+		    }
+		    if(i==address.length-1)
+		{
+			console.log(objects);
+			callback(objects);
+		}
+		i++;
 		});
 
 
 	},function(objects){
-		console.log(objects);
-		res.send("<h1>hello</h1>");
+		console.log(objects.length);
+		res.send(objects);
 	});
 
 
