@@ -3,13 +3,14 @@ const express=require('express');
 const bodyParser=require('body-parser');
 var request = require("request");
 var async=require("async");
-//const postsModel=require('./models/posts');
+var locationsModel=require('./models/locations');
 const mongoose=require('mongoose');
 
 const app=express();
 const PORT=3000;
 
 //mongoose.connect(process.env.MONGODB_URI.toString());
+mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app");
 
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
@@ -33,52 +34,7 @@ app.post('/main',function(req,res){
 	var address=req.body.address;
 	var link=req.body.link;
 	var objects=[];
-	var i=0;
 
-	/*async.forEachOf(address,(value,key,callback)=>{
-		console.log("inside");
-
-		var url = "https://maps.googleapis.com"+
-			"/maps/api/geocode/json?address="+address+"&key="+_key;
-		console.log(url);
-		var location= {lat:0,lng:0};
-
-		request({url: url,json: true}, function (error, response, body) {
-		    if (!error && response.statusCode === 200) {
-		       location=body;
-		       objects.push(location);
-		    }
-		    else if(error)
-		    {
-		    	console.log(error);
-		    }
-		    if(i==address.length-1)
-			{
-				console.log(objects);
-				callback(objects);
-			}
-			i++;
-		});
-
-	},function(objects){
-		console.log(objects.length);
-		res.redirect("/map");
-		app.get("/map",function(req,res){
-			console.log(location);
-			res.render("map.ejs",{location:objects});
-		});
-	});*/
-
-	/*var itemsProcessed = 0;
-
-	[1, 2, 3].forEach((item, index, array) => {
-		asyncFunction(item, () => {
-			itemsProcessed++;
-			if(itemsProcessed === array.length) {
-			  callback();
-			}
-		});
-	});*/
 	var url=[];
 	for(i=0;i<address.length;++i)
 	{
@@ -100,10 +56,45 @@ app.post('/main',function(req,res){
 		    }
 		});
 	});
-	function callback (objects) { 
+	function callback (objects) 
+	{ 
 		console.log(objects);
-		 }
+		for(var i=0;i<objects.length;++i)
+		{
+			var locations=new locationsModel({
+					address:objects[i].address,
+					position:objects[i].location
+
+			});
+			locations.save(function(err,user){
+					if(err)
+					{
+						console.log(err);
+					}else{
+						console.log(user);
+					}
+				});
+		}
+
+	}	
 		
+res.redirect('/map');
 
+});
 
+app.get('/map',function(req,res){
+	locationsModel.find({},function(err,locations){
+		if(err)
+		{
+			console.log(err);
+		}
+		else{
+			var data=[];
+			for(var i=0;i<locations.length;++i)
+			{
+				data.push(locations[i].position);
+			}
+			res.render('map.ejs',{locations:data});
+		}
+	});
 });

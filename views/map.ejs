@@ -4,10 +4,22 @@
 	<title>Map</title>
 </head>
 <body>
-
+	<%var position=[];%>
+	<%for(var i=0;i<locations.length;++i){%>
+	<%position.push(locations[i]);%>
+	<p><%=position[i]%></p>
+	<%}%>
 </body>
 <script>
-function initMap() {
+	var clientPositions=<%-JSON.stringify(position)%>;
+	console.log(clientPositions);
+	/*for(var i=0;i<<%=position.length%>;++i)
+	{
+		clientPositions.push(<%position[i]%>);
+	}
+	console.log(clientPositions.length);*/
+
+/*function initMap() {
 	var infoWindow = new google.maps.InfoWindow();
 
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -36,7 +48,7 @@ function initMap() {
 
 	});
 
-}
+}*/
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw&libraries=places&callback=initMap" async defer></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw&libraries=places&callback=initMap" async defer></script>-->
 </html>
