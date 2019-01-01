@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Map</title>
+	<link rel="stylesheet" type="text/css" href="/CSS/map.css">
+</head>
+<body>
+	<%var position=[];%>
+	<%for(var i=0;i<locations.length;++i){%>
+	<%position.push(locations[i]);%>
+	<%}%>
+
+	<div id="map">
+	</div>
+</body>
+<script>
+	var clientPositions=<%-JSON.stringify(position)%>;
+	console.log(clientPositions);
+
+function initMap() {
+	var infoWindow = new google.maps.InfoWindow();
+
+	map = new google.maps.Map(document.getElementById('map'), {
+		center:clientPositions[0] ,
+		zoom: 4,
+		styles: [{
+			stylers: [{
+				saturation: -100
+			}]
+		}]
+	});
+
+	for(var i=0;i<clientPositions.length;++i)
+	{
+		marker = new google.maps.Marker({
+			position:clientPositions[i],
+	        map:map
+		});
+
+	}
+
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw&libraries=places&callback=initMap" async defer></script>
+</html>
