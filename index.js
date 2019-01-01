@@ -11,6 +11,13 @@ const mongoose=require('mongoose');
 const app=express();
 
 //requiring routes
+function isLoggedIn(req, res, next) {
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
 var homePage=require('./services/routes/homePage');
 var locationsInput=require('./services/routes/locationsInput');
 var loginAndRegister=require('./services/routes/loginAndRegister');
