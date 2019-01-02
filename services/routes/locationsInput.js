@@ -32,13 +32,14 @@ router.post('/main',isLoggedIn,function(req,res){
 	isDone=true;
 	if(isDone)
 	{
-		update(address2,link,city,name,number,state);
+		update(address2,link,city,name,number,state,objects);
 		isDone=false;
 	}
 	
-	function update(address2,link,city,name,number,state)
+	function update(address2,link,city,name,number,state,objects)
 	{
 		var url=[];
+		console.log("address2Len"+address2.length)
 		for(i=0;i<address2.length;++i)
 		{
 			var urll = "https://maps.googleapis.com"+
@@ -48,7 +49,23 @@ router.post('/main',isLoggedIn,function(req,res){
 		var itemsProcessed = 0;
 		url.forEach(function(item,i,array){
 			request({url: item,json: true}, function (error, response, body) {
-			    if (!error && response.statusCode === 200) {
+	
+				itemsProcessed++;
+				console.log("loop1"+itemsProcessed);
+				 objects.push({location:{lat:0,lng:0},address:"aaaaaa"});
+			    if(itemsProcessed === array.length)
+			    {
+			    	callback(objects);
+			    	console.log("itemProc"+itemsProcessed);
+			    	console.log("objects");
+			    	console.log(objects);
+			    	console.log("objects End");
+			    }
+
+
+			    /*
+			    if (!error && response.statusCode === 200) 
+			    {
 			       if(body.status=="OK")
 			       {
 			       		location=body.results[0].geometry.location;
@@ -61,23 +78,20 @@ router.post('/main',isLoggedIn,function(req,res){
 			    else if(error)
 			    {
 			    	console.log(error);
-			    }
-			    itemsProcessed++;
-			    if(itemsProcessed === array.length)
-			    {
-			    	callback(objects);
-			    }
+			    }*/
 			});
 		});
 	}
-	function callback (objects) 
+	function callback (objects2) /* fix all of this !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 	{ 
-		for(var i=0;i<objects.length;++i)
+		console.log("objects2Len"+objects2.length);
+		var locations=[];
+		for(var i=0;i<objects2.length;++i)
 		{
-			var locations=new locationsModel({
+			var location=new locationsModel({
 					companyName:name[i],
-					address:objects[i].address,
-					position:objects[i].location,
+					address:null,   //this is wrong....
+					position:{lat:null,lng:null},
 					link:link[i],
 					state:state[i],
 					city:city[i],
@@ -85,14 +99,22 @@ router.post('/main',isLoggedIn,function(req,res){
 					postedBy: req.user.id
 
 			});
-			locations.save(function(err,user){
+			locations.push(location)
+			console.log("loop");
+		}
+		objects=[];
+		console.log("lationsLen"+locations.length); //where's it brkn
+		for(var i=0;i<locations.length;++i)
+		{
+			locations[i].save(function(err,user){
 				if(err)
 				{
 					console.log(err);
 				}
-				});
+			});
 		}
 		res.redirect('/viewMap');
+
 
 	}	
 		

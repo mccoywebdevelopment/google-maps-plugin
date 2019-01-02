@@ -41,6 +41,7 @@ router.get('/viewMap',isLoggedIn,function(req,res){
 		else{
 			var data=[];
 			var messages=[];
+      console.log("Locations length(map):"+locations.length);
 			for(var i=0;i<locations.length;++i)
 			{
 				if(locations[i].position.lat==0 && locations[i].position.lng==0)
