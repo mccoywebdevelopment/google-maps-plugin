@@ -26,9 +26,7 @@ router.post('/main',isLoggedIn,function(req,res){
 	var objects=[];
 
 	var address2=checkAddress(address);
-	console.log("address2:");
-	console.log(address2);
-	console.log("end");
+
 	isDone=true;
 	if(isDone)
 	{
@@ -51,15 +49,28 @@ router.post('/main',isLoggedIn,function(req,res){
 			request({url: item,json: true}, function (error, response, body) {
 	
 				itemsProcessed++;
-				console.log("loop1"+itemsProcessed);
-				 objects.push({location:{lat:0,lng:0},address:"aaaaaa"});
+
+				if (!error && response.statusCode === 200) 
+				{
+					if(body.status=="OK")
+					{
+						location=body.results[0].geometry.location;
+						objects.push({location:location,address:address2[i]});
+					}
+					else{
+						objects.push({location:{lat:0,lng:0},address:address2[i]});
+					}
+				}
+				else if(error)
+				{
+					console.log(error);
+				}
+
+
+				 //objects.push({location:{lat:0,lng:0},address:address2[i]});
 			    if(itemsProcessed === array.length)
 			    {
 			    	callback(objects);
-			    	console.log("itemProc"+itemsProcessed);
-			    	console.log("objects");
-			    	console.log(objects);
-			    	console.log("objects End");
 			    }
 
 
@@ -84,14 +95,13 @@ router.post('/main',isLoggedIn,function(req,res){
 	}
 	function callback (objects2) /* fix all of this !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 	{ 
-		console.log("objects2Len"+objects2.length);
 		var locations=[];
 		for(var i=0;i<objects2.length;++i)
 		{
 			var location=new locationsModel({
 					companyName:name[i],
-					address:null,   //this is wrong....
-					position:{lat:null,lng:null},
+					address:objects2[i].address,   //this is wrong....
+					position:objects2[i].location,
 					link:link[i],
 					state:state[i],
 					city:city[i],
@@ -100,10 +110,8 @@ router.post('/main',isLoggedIn,function(req,res){
 
 			});
 			locations.push(location)
-			console.log("loop");
 		}
 		objects=[];
-		console.log("lationsLen"+locations.length); //where's it brkn
 		for(var i=0;i<locations.length;++i)
 		{
 			locations[i].save(function(err,user){

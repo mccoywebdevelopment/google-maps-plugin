@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
+<%include partials/header%>
+	
 	<title>Map</title>
 	<link rel="stylesheet" type="text/css" href="/CSS/map.css">
 </head>
@@ -14,8 +13,40 @@
 	<%position.push(locations[i]);%>
 	<%}%>
 
-	<div id="map">
+	<div class="container">
+	    <div class="row">
+	        <div class="col-lg-9 col-md-12 col-sm-12 border-top-bottom custom-padding">
+	              <div id="click-box" class="autocomplete">
+	                <input  autocomplete="off" type="text" placeholder="Search Locations" id="filter_users">
+	                    <ul id="users-list" class="z-index-99">
+
+	                    </ul>
+	              </div>
+	        </div>
+	        <!--<div class="col-lg-3 border-top-bottom custom-padding">
+	        </div>-->
+	    </div>  
+	    <div class="row">
+	        <div class="col-lg-9 col-sm-12 col-sm-12 no-pad-rt">
+	            <div id="map">
+	                <p>
+	                test
+	                </p>
+	            </div>
+	        </div>
+	        <div class="col-lg-3 col-md-12 col-sm-12 pre-scrollable border-bottom list-stores">
+	            <ul id="store-locations">
+	                
+	                
+	                
+	            </ul>
+
+	        </div>
+
+	    </div>
 	</div>
+
+	
 </body>
 <script>
 	var clientPositions=<%-JSON.stringify(position)%>;
@@ -25,25 +56,35 @@ function initMap() {
 	var infoWindow = new google.maps.InfoWindow();
 
 	map = new google.maps.Map(document.getElementById('map'), {
-		center:clientPositions[0] ,
-		zoom: 4,
-		styles: [{
-			stylers: [{
-				saturation: -100
-			}]
-		}]
+		center:clientPositions[0].position,
+		zoom: 4
 	});
 
 	for(var i=0;i<clientPositions.length;++i)
 	{
 		marker = new google.maps.Marker({
-			position:clientPositions[i],
-	        map:map
+			position:clientPositions[i].position,
+	        map:map,
+	        title:clientPositions[i].name,
+            address:clientPositions[i].address
 		});
+		 google.maps.event.addListener(marker, 'click', function(){
+                infoWindow.setContent("<div class='custom-padding-5'><h4>"+this.title+"</h4>"+
+                                      "<p>"+this.address+"</p>"+
+                                      "<button value='2' class='main-color btn' onclick='getDirections("+'"'+this.address+'"'+")'>Directions</button></div>");
+                infoWindow.open(map, this);
+                //window.location.href = this.url;
+            
+            });
 
 	}
 
 }
+function getDirections(address)
+{
+    window.location.href = "https://www.google.com/maps/search/"+address;
+}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw&libraries=places&callback=initMap" async defer></script>
-</html>
+
+<%include partials/footer%>
