@@ -5,6 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="/CSS/map.css">
 </head>
 <body>
+	<%for(var i=0;i<errorMessages.length;++i){%>
+	<h1><%=errorMessages[i];%></h1>
+	<%}%>
+
 	<%var position=[];%>
 	<%for(var i=0;i<locations.length;++i){%>
 	<%position.push(locations[i]);%>

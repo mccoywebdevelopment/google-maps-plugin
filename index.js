@@ -8,16 +8,11 @@ var localStrategy=require('passport-local');
 var passport=require('passport');
 var locationsModel=require('./models/locations');
 const mongoose=require('mongoose');
+var isLoggedIn=require('./services/middleWare/isLoggedIn');
 const app=express();
 
 //requiring routes
-function isLoggedIn(req, res, next) {
-    // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
-        return next();
-    // if they aren't redirect them to the home page
-    res.redirect('/');
-}
+
 var homePage=require('./services/routes/homePage');
 var locationsInput=require('./services/routes/locationsInput');
 var loginAndRegister=require('./services/routes/loginAndRegister');
@@ -51,7 +46,7 @@ app.use(function(req, res, next){
    next();
 });
 
-app.use(homePage,locationsInput,loginAndRegister,map);
+app.use(homePage,locationsInput,loginAndRegister,map,isLoggedIn);
 
 app.listen(PORT,function() {
     console.log("Listening on Port:"+PORT);

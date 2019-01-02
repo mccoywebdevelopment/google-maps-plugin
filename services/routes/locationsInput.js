@@ -4,16 +4,9 @@ var router  = express.Router();
 var userModel = require("../../models/user");
 var locationsModel=require("../../models/locations");
 const mongoose=require('mongoose');
+var isLoggedIn=require('../middleWare/isLoggedIn');
 
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
-
-function isLoggedIn(req, res, next) {
-    // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
-        return next();
-    // if they aren't redirect them to the home page
-    res.redirect('/');
-}
 
 router.get('/locationsInput',isLoggedIn,function (req,res) {
   res.render('locationInput.ejs');
@@ -28,17 +21,22 @@ router.post('/main',isLoggedIn,function(req,res){
 	var name=req.body.companyName;
 	var number=req.body.phone;
 	var state=req.body.state;
+	var isDone=false;
+
 	var objects=[];
 
-	console.log(req.user._id);
-
-
 	var address2=checkAddress(address);
-	update(address2,link,city,name,number,state,objects);
-
-
+	console.log("address2:");
+	console.log(address2);
+	console.log("end");
+	isDone=true;
+	if(isDone)
+	{
+		update(address2,link,city,name,number,state);
+		isDone=false;
+	}
 	
-	function update(address2,link,city,name,number,state,objects)
+	function update(address2,link,city,name,number,state)
 	{
 		var url=[];
 		for(i=0;i<address2.length;++i)
@@ -57,7 +55,6 @@ router.post('/main',isLoggedIn,function(req,res){
 			       		objects.push({location:location,address:address2[i]});
 			       }
 			       else{
-			       	console.log(body.status);
 			       	objects.push({location:{lat:0,lng:0}},address2[i]);
 			       }
 			    }
@@ -89,13 +86,10 @@ router.post('/main',isLoggedIn,function(req,res){
 
 			});
 			locations.save(function(err,user){
-					if(err)
-					{
-						console.log(err);
-					}else{
-						console.log("user");
-						console.log(user);
-					}
+				if(err)
+				{
+					console.log(err);
+				}
 				});
 		}
 		res.redirect('/viewMap');

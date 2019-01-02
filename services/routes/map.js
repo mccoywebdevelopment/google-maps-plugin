@@ -3,6 +3,7 @@ var router  = express.Router();
 var userModel = require("../../models/user");
 var locationsModel=require("../../models/locations");
 const mongoose=require('mongoose');
+var isLoggedIn=require('../middleWare/isLoggedIn');
 
  /*var setId=req.params.setId;
   postsModel.find({postedBy:req.user._id}, (err, posts) => {
@@ -31,7 +32,7 @@ const mongoose=require('mongoose');
       });
     }
 });*/
-router.get('/viewMap',function(req,res){
+router.get('/viewMap',isLoggedIn,function(req,res){
 	locationsModel.find({postedBy:req.user._id},function(err,locations){
 		if(err)
 		{
@@ -39,11 +40,22 @@ router.get('/viewMap',function(req,res){
 		}
 		else{
 			var data=[];
+			var messages=[];
 			for(var i=0;i<locations.length;++i)
 			{
-				data.push(locations[i].position);
+				if(locations[i].position.lat==0 && locations[i].position.lng==0)
+				{
+          var msg="This address: "+locations[i].address+" you entered was incorrect.";
+          messages.push(msg);
+				}
+				else{
+					data.push(locations[i].position);
+				}
 			}
-			res.render('viewMap.ejs',{locations:data});
+      console.log("MAP");
+      console.log(locations);
+      console.log("END MAP");
+			res.render('viewMap.ejs',{locations:data,errorMessages:messages});
 		}
 	});
 });
