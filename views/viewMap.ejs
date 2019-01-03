@@ -48,9 +48,13 @@
 	
 </body>
 <script>
-	var clientPositions=<%-JSON.stringify(position)%>;
+
 
 function initMap() {
+
+  var clientPositions=<%-JSON.stringify(position)%>;
+
+
 	var infoWindow = new google.maps.InfoWindow();
 
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -113,17 +117,14 @@ function initMap() {
           map.fitBounds(bounds);
         });
 
-}
-
-
-function getDirections(address)
+        function getDirections(address)
 {
     window.location.href = "https://www.google.com/maps/search/"+address;
 }
 
 function displayStores(myMarkers)
 {
-	console.log("executed"+myMarkers.length);
+  console.log("executed"+myMarkers.length);
     var storelocations=document.getElementById("store-locations");
     for(var i=0;i<myMarkers.length;++i)
     {
@@ -175,6 +176,11 @@ function displayStores(myMarkers)
         });
     }
 }
+
+}
+
+
+
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw&libraries=places&callback=initMap" async defer></script>
