@@ -1,5 +1,4 @@
-<script>
-	var clientPositions=<%-JSON.stringify(position)%>;
+/*var clientPositions=<%-JSON.stringify(position)%>;*/
 
 function initMap() {
 	var infoWindow = new google.maps.InfoWindow();
@@ -126,6 +125,4 @@ function displayStores(myMarkers)
         });
     }
 }
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw&libraries=places&callback=initMap" async defer></script>
+alert("hello");
