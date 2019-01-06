@@ -9,6 +9,8 @@ var passport=require('passport');
 var locationsModel=require('./models/locations');
 const mongoose=require('mongoose');
 var isLoggedIn=require('./services/middleWare/isLoggedIn');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 const app=express();
 
 //requiring routes
@@ -21,6 +23,13 @@ var map=require('./services/routes/map');
 const PORT=3000;
 
 mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app");
+
+app.use(cookieParser());
+app.use(session({
+    secret: 'alksdjfl;akdjf;lajfijl;aejiovong490492420943u02lksadjl;af;l', // just a long random string
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(flash());

@@ -3,17 +3,18 @@ var request = require("request");
 var router  = express.Router();
 var userModel = require("../../models/user");
 var locationsModel=require("../../models/locations");
+var sessionDataModel=require("../../models/sessionData");
 const mongoose=require('mongoose');
 var isLoggedIn=require('../middleWare/isLoggedIn');
 
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
-router.get('/locationsInput',isLoggedIn,function (req,res) {
+router.get('/locationsInput',function (req,res) {
   res.render('locationInput.ejs');
 });
 
 
-router.post('/main',isLoggedIn,function(req,res){
+router.post('/main',function(req,res){
 
 	var address=req.body.address;
 	var link=req.body.link;
@@ -65,42 +66,33 @@ router.post('/main',isLoggedIn,function(req,res){
 				{
 					console.log(error);
 				}
-
-
-				 //objects.push({location:{lat:0,lng:0},address:address2[i]});
 			    if(itemsProcessed === array.length)
 			    {
 			    	callback(objects);
 			    }
 
-
-			    /*
-			    if (!error && response.statusCode === 200) 
-			    {
-			       if(body.status=="OK")
-			       {
-			       		location=body.results[0].geometry.location;
-			       		objects.push({location:location,address:address2[i]});
-			       }
-			       else{
-			       	objects.push({location:{lat:0,lng:0}},address2[i]);
-			       }
-			    }
-			    else if(error)
-			    {
-			    	console.log(error);
-			    }*/
 			});
 		});
 	}
-	function callback (objects2) /* fix all of this !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	function callback (objects2)
 	{ 
+		var userId=null;
 		var locations=[];
+		if(req.user!=null)
+		{
+			userId=req.user.id;
+		}
+		else{
+			userId=req.session.id;
+		}
+					
 		for(var i=0;i<objects2.length;++i)
 		{
-			var location=new locationsModel({
+			if(req.user!=null)
+			{
+				var location=new locationsModel({
 					companyName:name[i],
-					address:objects2[i].address,   //this is wrong....
+					address:objects2[i].address,
 					position:objects2[i].location,
 					link:link[i],
 					state:state[i],
@@ -108,7 +100,21 @@ router.post('/main',isLoggedIn,function(req,res){
 					phoneNumber:number[i],
 					postedBy: req.user.id
 
-			});
+				});
+			}
+			else{
+				
+				var location=new sessionDataModel({
+					companyName:name[i],
+					address:objects2[i].address,
+					position:objects2[i].location,
+					link:link[i],
+					state:state[i],
+					city:city[i],
+					phoneNumber:number[i],
+					postedBy: req.session.id
+				});
+			}
 			locations.push(location)
 		}
 		objects=[];
