@@ -1,52 +1,65 @@
 <%include partials/header%>
-	<title>Google Maps Plugin</title>
-	<link rel="stylesheet" type="text/css" href="/CSS/main.css">
+<title>Google Maps Plugin</title>
+<link rel="stylesheet" type="text/css" href="/CSS/main.css">
 </head>
 <body>
-<div class="card">
-	<h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
-	<div class="card-body">
-		<div id="table" class="table-editable">
-			<span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus fa-2x"
-				aria-hidden="true"></i></a></span>
-				<form method="post" action="main">
-					<table class="table table-bordered table-responsive-md table-striped text-center">
-						<tr>
-							<th class="text-center">Address</th>
-							<th class="text-center">City</th>
-							<th class="text-center">State</th>
-							<th class="text-center">Company Name</th>
-							<th class="text-center">Phone Number</th>
-							<th class="text-center">Link</th>
-							<th class="text-center">Remove</th>
-						</tr>
-						<tr class="data">
-							<td class="pt-3-half"><input type="text" name="address"></td>
-							<td class="pt-3-half"><input type="text" name="city"></td>
-							<td class="pt-3-half"><input type="text" name="state"></td>
-							<td class="pt-3-half"><input type="text" name="companyName"></td>
-							<td class="pt-3-half"><input type="text" name="phone"></td>
-							<td class="pt-3-half"><input type="text" name="link"></td>
-								<td>
-									<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-								</td>
-						</tr>
+	<div class="container noSpace">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="card">
+					<h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+					<div class="card-body">
+						<div id="table" class="table-editable">
+							<span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i class="fas fa-plus fa-2x"
+								aria-hidden="true"></i></a></span>
+								<form method="post" action="main">
+									<table class="table table-bordered table-responsive-md text-center">
+										<tr>
+											<th class="text-center">Address</th>
+											<th class="text-center">City</th>
+											<th class="text-center">State</th>
+											<th class="text-center">Company Name</th>
+											<th class="text-center">Phone Number</th>
+											<th class="text-center">Link</th>
+											<th class="text-center">Remove</th>
+										</tr>
+										<tr class="data">
+											<td class="pt-3-half"><input type="text" name="address"></td>
+											<td class="pt-3-half"><input type="text" name="city"></td>
+											<td class="pt-3-half"><input type="text" name="state"></td>
+											<td class="pt-3-half"><input type="text" name="companyName"></td>
+											<td class="pt-3-half"><input type="text" name="phone"></td>
+											<td class="pt-3-half"><input type="text" name="link"></td>
+											<td>
+												<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Delete</button></span>
+											</td>
+										</tr>
 
-						<tr class="data">
-							<td class="pt-3-half" ><input type="text" name="address"></td>
-							<td class="pt-3-half" ><input type="text" name="city"></td>
-							<td class="pt-3-half" ><input type="text" name="state"></td>
-							<td class="pt-3-half" ><input type="text" name="companyName"></td>
-							<td class="pt-3-half" ><input type="text" name="phone"></td>
-							<td class="pt-3-half" ><input type="text" name="link"></td>
-							<td>
-								<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-							</td>
-						</tr>
-					
-						</table>
-						<input class="btn btn-primary" type="submit">
-					</form>
+										<tr class="data">
+											<td class="pt-3-half" ><input type="text" name="address"></td>
+											<td class="pt-3-half" ><input type="text" name="city"></td>
+											<td class="pt-3-half" ><input type="text" name="state"></td>
+											<td class="pt-3-half" ><input type="text" name="companyName"></td>
+											<td class="pt-3-half" ><input type="text" name="phone"></td>
+											<td class="pt-3-half" ><input type="text" name="link"></td>
+											<td>
+												<span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Delete</button></span>
+											</td>
+										</tr>
+
+									</table>
+									<div class="col-lg-6">
+									</div>
+									<div class="col-lg-6 padding-right-0">
+										<button class="mapsBtn btn prevNext" type="submit">Next</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<h1>map preview</h1>
 				</div>
 			</div>
 		</div>

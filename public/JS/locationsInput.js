@@ -46,7 +46,7 @@ function add(){
 							"<td class='pt-3-half'><input type='text' name='companyName'></td>"+
 							"<td class='pt-3-half'><input type='text' name='phone'></td>"+
 							"<td class='pt-3-half'><input type='text' name='link'></td>"+
-							"<td><span class='table-remove'><button type='button' class='btn btn-danger btn-rounded btn-sm my-0'>Remove</button></span>"+
+							"<td><span class='table-remove'><button type='button' class='btn btn-danger btn-rounded btn-sm my-0'>Delete</button></span>"+
 							"</td></tr>");
 
 			remove();
