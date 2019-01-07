@@ -2,24 +2,25 @@ html,
 body {
   height: 100%;
   margin: 0;
-  background-color: #E5E5E5;
+  background-color: #4769f1;
   font-family: 'Roboto', sans-serif;
 }
 #myNav{
-	background: #03a9f4;
-	color: #F5F5F5!important;
+	background:  #F5F5F5;
+	color:  #039be5!important;
 	font-family: 'Roboto', sans-serif;
 	border-radius: 0px;
-	-webkit-box-shadow: 0 8px 6px -6px #999;
+	/*-webkit-box-shadow: 0 8px 6px -6px #999;*/
 	margin-left: -10px;
 	margin-right: -10px;
+  margin-bottom: 0px;
 }
 
 
 
 }
 a{
-	color:white!important;
+	color: #039be5!important;
 }
 .nav>a:hover{
 	/*text-decoration: underline;*/
@@ -60,7 +61,7 @@ button:hover{
 }
 .mapsBtn{
 	cursor: pointer!important;
-	background-color: #039be5!important;
+	background-color: #4769f1!important;
     color: #fff!important;
     transition: box-shadow .2s!important;
     padding: 16px!important;
@@ -99,3 +100,4 @@ img{
 .white{
   color:white!important;
 }
+

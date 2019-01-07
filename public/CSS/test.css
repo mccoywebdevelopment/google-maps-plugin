@@ -1,0 +1,25 @@
+body{
+	background-color:  #F5F5F5;
+}
+img {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  box-shadow: 0 24px 24px -6px #828282!important;*/
+  width:1000px;
+}
+.img1 {
+  z-index: 1;
+  top:400px;
+  left:100px;
+}
+.img2 {
+  z-index: 2;
+  top:300px;
+  left:1811px;
+}
+.img3 {
+  z-index: 3;
+  top: 1053px;
+    left: 944px;
+}
