@@ -10,11 +10,14 @@ input {
   }
 .table{
 	padding: 0px!important;
+	background-color: #FFFFFF;
 }
 .noSpace{
 	margin-left: 0px;
 	margin-right: 0px;
 	width: 100%;
+	display:table;
+	height: 93%;
 }
 .prevNext{
 	width: 100%;
@@ -29,4 +32,38 @@ input {
 }*/
 th,td{
 	background-color: white;
+}
+body{
+	background-color: #ECEDEE;
+}
+.probootstrap-header {
+	background: #6078EA;
+	padding-bottom: 30px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.editor{
+	background-color: #FFFFFF;
+	height: 100%;
+}
+
+#contentBtn,#designBtn{
+	width: 100%;
+	height: 100%;
+	margin-bottom: 0px;
+	border-radius: 2px;
+	border-color: #6078EA;
+	font-family: Rubik,sans-serif;
+	font-weight: 300;
+	color: #6078EA;
+	cursor: pointer!important;
+}
+.selected{
+	border-bottom: solid;
+}
+#design{
+	display: none;
 }
