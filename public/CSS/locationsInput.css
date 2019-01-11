@@ -60,6 +60,10 @@ html, body {
 	font-weight: 300;
 	color: #6078EA;
 	cursor: pointer!important;
+	padding-bottom: 20px;
+}
+.choose{
+	background-color: #ECEDEE;
 }
 .selected{
 	border-bottom: solid;
@@ -74,7 +78,41 @@ html, body {
 	padding-left: 12px;
 	-webkit-box-shadow: 0 2px 1px -2px #a0abbe;
 	margin-bottom: 0px;
+	cursor: pointer;
+}
+.locationBtn:hover{
+	opacity: 0.60;
+}
+.locationBtn>p>.myTrash{
+	visibility: hidden;
+	color:red;
+	padding-left: 200px;
+}
+.locationBtn:hover>p>.myTrash{
+	visibility: visible;
 }
 p{
 	margin-bottom: 0px;
+}
+.btnContainer{
+	padding-left: 44px;
+	padding-right: 44px;
+}
+.noSpace{
+	height: calc(100% - 61px);;
+}
+.editorRow{
+	height: 100%;
+}
+.addLocationBtn{
+	background:#17E9D9!important;
+	border: 1px solid #17E9D9!important;
+}
+.addLocationBtn:hover{
+	opacity: 0.60;
+}
+.scrollDiv{
+}
+.fa-arrow-circle-right{
+	font-size: 20px; float:right;padding-top: 6px;padding-right: 25px;
 }

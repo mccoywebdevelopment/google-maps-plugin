@@ -82,12 +82,13 @@ design.addEventListener("click",function(){
 }
 
 function remove(){
-	var removeBtn=document.querySelectorAll(".my-0");
+	var removeBtn=document.querySelectorAll(".myTrash");
+	console.log(removeBtn);
 
 	for(var i=0;i<removeBtn.length;++i)
 	{
 		removeBtn[i].addEventListener("click",function(){
-			var lenBtn=document.querySelectorAll(".my-0").length;
+			var lenBtn=document.querySelectorAll(".myTrash").length;
 			console.log(lenBtn);
 
 			if(lenBtn!=1)
