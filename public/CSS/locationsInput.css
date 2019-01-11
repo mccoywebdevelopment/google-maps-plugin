@@ -83,12 +83,14 @@ html, body {
 .locationBtn:hover{
 	opacity: 0.60;
 }
-.locationBtn>p>.myTrash{
+.locationBtn>p>span>.myTrash{
 	visibility: hidden;
 	color:red;
+}
+.locationBtn>p>span{
 	padding-left: 200px;
 }
-.locationBtn:hover>p>.myTrash{
+.locationBtn:hover>p>span>.myTrash{
 	visibility: visible;
 }
 p{

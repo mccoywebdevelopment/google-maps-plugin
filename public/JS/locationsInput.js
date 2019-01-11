@@ -93,7 +93,7 @@ function remove(){
 
 			if(lenBtn!=1)
 			{
-				this.parentElement.parentElement.parentElement.remove();
+				this.parentElement.parentElement.parentElement.parentElement.remove();
 			}
 
 		});
@@ -101,28 +101,22 @@ function remove(){
 }
 
 function add(){
-	var addBtn=document.querySelectorAll(".fa-plus");
+	var addBtn=document.querySelectorAll(".addLocationBtn");
 
 	for(var i=0;i<addBtn.length;++i)
 	{
 		addBtn[i].addEventListener("click",function(){
 
-			var table=document.querySelectorAll(".data");
+			var table=document.querySelectorAll(".btnContainer");
 			var endOfTable=table[table.length-1];
 			var p=document.createElement("p");
 			var textNode=document.createTextNode("Test");
 
 
 			p.appendChild(textNode);
-			endOfTable.insertAdjacentHTML( 'afterend',"<tr class='data'>"+
-				"<td class='pt-3-half'><input type='text' name='address'></td>"+
-				"<td class='pt-3-half'><input type='text' name='city'></td>"+
-				"<td class='pt-3-half'><input type='text' name='state'></td>"+
-				"<td class='pt-3-half'><input type='text' name='companyName'></td>"+
-				"<td class='pt-3-half'><input type='text' name='phone'></td>"+
-				"<td class='pt-3-half'><input type='text' name='link'></td>"+
-				"<td><span class='table-remove'><button type='button' class='btn btn-danger btn-rounded btn-sm my-0'>Delete</button></span>"+
-				"</td></tr>");
+			endOfTable.insertAdjacentHTML( 'afterend',"<div class='col-lg-12 padding-left-30 padding-right-30 padding-top-20 btnContainer'>"+
+              "<div class='locationBtn vertical-center'><p class='vertical-center'><i class='fas fa-map-marker-alt padding-right-20'></i>Location "+
+               ""+(table.length+1)+"<span class='myTrash2'><i class='myTrash fas fa-trash-alt'></i></span><i class='fas fa-arrow-circle-right '></i></p></div></div>");
 
 			remove();
 
