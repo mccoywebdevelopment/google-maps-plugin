@@ -6,12 +6,19 @@ var locationsModel=require("../../models/locations");
 var sessionDataModel=require("../../models/sessionData");
 const mongoose=require('mongoose');
 var isLoggedIn=require('../middleWare/isLoggedIn');
+var obfuscator=require('../middleWare/obfuscatorCode');
+var fs = require("fs");
 
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
 router.get('/locationsInput',function (req,res) {
 
-  	res.render('locationInput.ejs');
+	fs.readFile(__dirname +"/../documents/blankMap.js", function (err, data) {
+	    if (err) throw err;
+	    data=obfuscator.obfuscateCode(data);
+	    var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
+	    res.render('locationInput.ejs',{mapJs:data,gKey:myKey});
+	});
 });
 
 
