@@ -10,7 +10,8 @@ var isLoggedIn=require('../middleWare/isLoggedIn');
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
 router.get('/locationsInput',function (req,res) {
-  res.render('locationInput.ejs');
+
+  	res.render('locationInput.ejs');
 });
 
 

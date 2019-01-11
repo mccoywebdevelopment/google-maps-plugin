@@ -117,6 +117,7 @@ function add(){
 			endOfTable.insertAdjacentHTML( 'afterend',"<div class='col-lg-12 padding-left-30 padding-right-30 padding-top-20 btnContainer'>"+
               "<div class='locationBtn vertical-center'><p class='vertical-center'><i class='fas fa-map-marker-alt padding-right-20'></i>Location "+
                ""+(table.length+1)+"<span class='myTrash2'><i class='myTrash fas fa-trash-alt'></i></span><i class='fas fa-arrow-circle-right '></i></p></div></div>");
+			endOfTable.scrollIntoView();
 
 			remove();
 

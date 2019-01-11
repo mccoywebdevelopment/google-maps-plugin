@@ -114,7 +114,32 @@ p{
 	opacity: 0.60;
 }
 .scrollDiv{
+	overflow-y: scroll;
+	float: left;
+	height: 380px;
 }
 .fa-arrow-circle-right{
 	font-size: 20px; float:right;padding-top: 6px;padding-right: 25px;
+}
+li{
+	list-style-type: none;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  margin-right: 4px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: transparent; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #17E9D9; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
 }
