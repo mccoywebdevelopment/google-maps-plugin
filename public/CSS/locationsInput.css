@@ -71,34 +71,31 @@ html, body {
 #design{
 	display: none;
 }
-.locationBtn{
-	padding-top: 8px;
-	padding-bottom: 8px;
-	background-color: #EFF2F4;
-	padding-left: 12px;
-	-webkit-box-shadow: 0 2px 1px -2px #a0abbe;
-	margin-bottom: 0px;
-	cursor: pointer;
-}
 .locationBtn:hover{
 	opacity: 0.60;
 }
-.locationBtn>p>span>.myTrash{
+.myTrash{
 	visibility: hidden;
 	color:red;
 }
-.locationBtn>p>span{
-	padding-left: 200px;
-}
-.locationBtn:hover>p>span>.myTrash{
-	visibility: visible;
-}
-p{
-	margin-bottom: 0px;
-}
 .btnContainer{
-	padding-left: 44px;
-	padding-right: 44px;
+	/*padding-left: 44px;
+	padding-right: 44px;*/
+	background-color: #EFF2F4;
+	-webkit-box-shadow: 0 2px 1px -2px #a0abbe;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 0px;
+	padding-right: 0px;
+	width: 100%;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+.btnContainer:hover{
+	opacity: 0.60;
+	}
+.btnContainer:hover>div>.myTrash{
+	visibility: visible;
 }
 .noSpace{
 	height: calc(100% - 61px);;
@@ -117,9 +114,12 @@ p{
 	overflow-y: scroll;
 	float: left;
 	height: 380px;
+	padding-left: 50px;
+    padding-right: 50px;
+    width: 100%;
 }
 .fa-arrow-circle-right{
-	font-size: 20px; float:right;padding-top: 1px;padding-right: 25px;
+	/*font-size: 20px; float:right;padding-top: 1px;padding-right: 25px;*/
 }
 li{
 	list-style-type: none;
@@ -141,5 +141,12 @@ li{
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #b30000; 
+  background: rgba(23,233,217,0.6); 
+}
+.myTrash{
+	/*position: relative;
+	z-index: 2;*/
+}
+.myTrash2{
+	/*padding-left: 250px;*/
 }

@@ -1,38 +1,9 @@
 window.onload = function() {
+	addInputs();
 	remove();
 	add();
 	contentOrDesign();
-
-
 }
-/*function fadeInDesign()
-{
-	var designSide=document.getElementById("design");
-	designSide.classList.add('fadeInLeft');
-	var contentSide=document.getElementById("location");
-
-	contentSide.classList.add('fadeInLeft');
-
-	if(contentSide.classList.contains('fadeInRight'))
-	{
-		contentSide.classList.remove('fadeInRight');
-	}
-	//contentSide.classList.add("probootstrap-animated");
-}
-function fadeInContent()
-{
-	var designSide=document.getElementById("design");
-	var contentSide=document.getElementById("location");
-	contentSide.classList.add('fadeInRight');
-
-	contentSide.classList.add('fadeInLeft');
-
-	if(designSide.classList.contains('fadeInLeft'))
-	{
-		designSide.classList.remove('fadeInLeft');
-	}
-	//designSide.classList.add("probootstrap-animated");
-}*/
 function contentOrDesign(){
 	var content=document.getElementById('contentBtn');
 	var design=document.getElementById('designBtn');
@@ -56,13 +27,16 @@ content.addEventListener("click",function(){
 		design.classList.remove('selected');
 
 	}
+	addInputs();
+	remove();
+	add();
+	contentOrDesign();
 
 });
 
 //click design
 design.addEventListener("click",function(){
 
-	//fadeInDesign();
 	var designSide=document.getElementById("design");
 	var contentSide=document.getElementById("location");
 
@@ -83,7 +57,6 @@ design.addEventListener("click",function(){
 
 function remove(){
 	var removeBtn=document.querySelectorAll(".myTrash");
-	console.log(removeBtn);
 
 	for(var i=0;i<removeBtn.length;++i)
 	{
@@ -93,8 +66,9 @@ function remove(){
 
 			if(lenBtn!=1)
 			{
-				this.parentElement.parentElement.parentElement.parentElement.remove();
+				this.parentElement.parentElement.remove();
 			}
+			addInputs();
 
 		});
 	}
@@ -114,13 +88,40 @@ function add(){
 
 
 			p.appendChild(textNode);
-			endOfTable.insertAdjacentHTML( 'afterend',"<div class='col-lg-12 padding-left-30 padding-right-30 padding-top-20 btnContainer'>"+
-              "<div class='locationBtn vertical-center'><p class='vertical-center'><i class='fas fa-map-marker-alt padding-right-20'></i>Location "+
-               ""+(table.length+1)+"<span class='myTrash2'><i class='myTrash fas fa-trash-alt'></i></span><i class='fas fa-arrow-circle-right '></i></p></div></div>");
+			endOfTable.insertAdjacentHTML( 'afterend',`<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
+							<div class='col-lg-1 clickable'>
+								<i class='fas fa-map-marker-alt'></i>
+							</div>
+							<div class='col-lg-6 clickable'>
+								<p style='margin-bottom: 0px;'>Location `+(table.length+1)+`</p>
+							</div>
+							<div class='col-lg-1'>
+								<i class='myTrash fas fa-trash-alt'></i>
+							</div>
+							<div class='col-lg-4 clickable'>
+								<i style='float:right' class='fas fa-arrow-circle-right '></i>
+							</div>
+						</div>`);
 			endOfTable.scrollIntoView();
 
 			remove();
+			addInputs();
 
 		});
 	}
 }
+
+function addInputs()
+{
+	var locationBtn=document.querySelectorAll(".clickable");
+	var trashBtn=document.querySelectorAll(".myTrash");
+	for(var i=0;i<locationBtn.length;++i)
+	{
+		locationBtn[i].addEventListener("click",function(){
+			var positionSlide=document.getElementById("location");
+			positionSlide.style.display="none";
+		});
+	}
+
+}
+

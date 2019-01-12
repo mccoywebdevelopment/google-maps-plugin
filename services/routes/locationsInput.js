@@ -22,6 +22,18 @@ router.get('/locationsInput',function (req,res) {
 });
 
 
+router.post('locationsInput/add',function(req,res){
+
+	
+
+});
+
+
+
+
+
+
+
 router.post('/main',function(req,res){
 
 	var address=req.body.address;
