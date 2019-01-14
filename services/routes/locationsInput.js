@@ -11,6 +11,10 @@ var fs = require("fs");
 
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
+/*default client data*/
+
+
+
 router.get('/locationsInput',function (req,res) {
 
 	fs.readFile(__dirname +"/../documents/blankMap.js", function (err, data) {
@@ -22,11 +26,15 @@ router.get('/locationsInput',function (req,res) {
 });
 
 
-router.post('locationsInput/add',function(req,res){
-
-	
-
-});
+/*router.get('/locationsInput/editLocation',function(req,res){
+	//res.render("locationInputEditLocation.ejs",{mapJs:data,gKey:myKey});
+	fs.readFile(__dirname +"/../documents/blankMap.js", function (err, data) {
+	    if (err) throw err;
+	    data=obfuscator.obfuscateCode(data);
+	    var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
+	    res.render("locationInputEditLocation.ejs",{mapJs:data,gKey:myKey});
+	});
+});*/
 
 
 

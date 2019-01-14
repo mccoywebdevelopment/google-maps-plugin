@@ -143,10 +143,15 @@ li{
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(23,233,217,0.6); 
 }
-.myTrash{
-	/*position: relative;
-	z-index: 2;*/
+
+.grey
+{
+	background-color: #ECEDEE!important;
 }
-.myTrash2{
-	/*padding-left: 250px;*/
+#editLocation{
+	display: none;
+}
+.addLocation33{
+	padding-left: 33px;
+	padding-right: 33px;
 }
