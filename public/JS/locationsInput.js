@@ -132,7 +132,7 @@ function remove(){
 				}
 
 			}
-			console.log(allLocations);
+			console.log("Length:"+allLocations.length);
 			addInputs();
 
 		});
@@ -171,8 +171,6 @@ function add(){
 		endOfTable.scrollIntoView();
 		remove();
 		addInputs();
-
-		console.log(allLocations);
 
 		});
 	}
