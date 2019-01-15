@@ -94,7 +94,7 @@ html, body {
 .btnContainer:hover{
 	opacity: 0.60;
 	}
-.btnContainer:hover>div>.myTrash{
+.btnContainer:hover>div>form>.myTrash{
 	visibility: visible;
 }
 .noSpace{

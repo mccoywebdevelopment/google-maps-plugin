@@ -39,8 +39,10 @@ router.get('/locationsInput',function (req,res) {
 	});
 });
 
-
-
+router.post('/delete',function(req,res){
+	var id=req.body.locationId;
+	res.send(id);
+});
 
 router.post('/main',function(req,res){
 	var address=req.body.address;
