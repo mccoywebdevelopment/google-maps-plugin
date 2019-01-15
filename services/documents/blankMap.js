@@ -7,16 +7,16 @@ function initMap() {
 		zoom: 3
 	});
 
-	//var marker=[];
+	var marker=[];
 
-	/*for(var i=0;i<clientPositions.length;++i)
+	for(var i=0;i<clientPositions.length;++i)
 	{
 		marker = new google.maps.Marker({
       
 			position:clientPositions[i].position,
-	        map:map,
-	        title:clientPositions[i].name,
-            address:clientPositions[i].address
+      map:map,
+      title:clientPositions[i].title,
+      address:clientPositions[i].address
 		});
 		 google.maps.event.addListener(marker, 'click', function(){
                 infoWindow.setContent("<div class='custom-padding-5'><h4>"+this.title+"</h4>"+
@@ -29,7 +29,7 @@ function initMap() {
 	}
 	console.log("marker:")
 	console.log(marker);
-	displayStores(clientPositions);*/
+	displayStores(clientPositions);
 
 
 	var input = document.getElementById('filter_users');
@@ -87,7 +87,7 @@ function displayStores(myMarkers)
 
         var title=document.createElement("p");
         title.classList.add("title");
-        textTitle=document.createTextNode(myMarkers[i].name);
+        textTitle=document.createTextNode(myMarkers[i].title);
         title.appendChild(textTitle);
 
         node.appendChild(title);

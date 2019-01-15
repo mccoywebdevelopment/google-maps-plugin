@@ -12,9 +12,7 @@ var sessionDataSchema =new mongoose.Schema({
 		lat:Number,
 		lng:Number
 	},
-	postedBy: {
-		sessionId:String
-	},
+	postedId:String,
 });
 
 var sessionData =mongoose.model("sessionData",sessionDataSchema);

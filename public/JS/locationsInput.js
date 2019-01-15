@@ -190,6 +190,7 @@ function addInputs()
 
 			//fill in the inputs
 			var titleInput=document.getElementsByName("title")[0];
+			var placeIdInput=document.getElementsByName("place")[0];
 			//IMPORTANT NEED TO FILL THE FIRST FIVE WITH THE OBJECT.SERVER SIDE
 			var found=false;
 			for(var i=0;i<allLocations.length;++i)
