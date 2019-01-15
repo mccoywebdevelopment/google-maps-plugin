@@ -44,7 +44,7 @@ function loadLocations()
 								<i class='fas fa-map-marker-alt'></i>
 							</div>
 							<div class='col-lg-6 clickable' value='`+allLocations[i].placeId+`'>
-								<p style='margin-bottom: 0px;'>Location `+allLocations[i].placeId+`</p>
+								<p style='margin-bottom: 0px;'>`+allLocations[i].title+`</p>
 							</div>
 							<div class='col-lg-1'>
 								<i class='myTrash fas fa-trash-alt'></i>
@@ -209,25 +209,4 @@ function addInputs()
 	}
 
 }
-
-/*
-location object(javaScript)
-	title:String,
-	address:String,
-	link:String,
-	phoneNumber:String,
-	placeId:Number
-
-	function location(title,address,link,phoneNumber);
-
-	function update(title,address,link,phoneNumber);
-
-	function delete();
-
-
-
-
-
-
-*/
 
