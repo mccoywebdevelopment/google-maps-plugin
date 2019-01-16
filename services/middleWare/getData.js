@@ -33,14 +33,14 @@ function findSessionDataById(sessionDataModel,id,callback){
 			callback(null);
 		}
 		else{
-			if(!data.locations)
+			if(!data[0].locations)
 			{
 				console.log("Data does not exist");
 				callback(null);
 			}
 			else{
 				console.log("Data does exist.");
-				callback(data);
+				callback(data[0].locations);
 			}
 		}
 
