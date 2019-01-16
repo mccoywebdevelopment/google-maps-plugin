@@ -18,7 +18,7 @@ const app=express();
 var homePage=require('./services/routes/homePage');
 var locationsInput=require('./services/routes/locationsInput');
 var loginAndRegister=require('./services/routes/loginAndRegister');
-var map=require('./services/routes/map');
+var test=require('./services/routes/test');
 
 const PORT=3000;
 
@@ -55,7 +55,7 @@ app.use(function(req, res, next){
    next();
 });
 
-app.use(homePage,locationsInput,loginAndRegister,map,isLoggedIn);
+app.use(homePage,locationsInput,loginAndRegister,test,isLoggedIn);
 
 app.listen(PORT,function() {
     console.log("Listening on Port:"+PORT);

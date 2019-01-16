@@ -1,32 +1,50 @@
-/*function getData(req)
-{
-	var data=null;
-	if(req.user!=null)
+function getLocations(req,user,session,userModel,sessionDataModel,callback){
+	if(user!=null)
 	{
-		locationsModel.find({postedBy:req.user._id},function(err,locations){
-			if(err)
-			{
-				console.log(err);
-			}
-			else{
-				console.log("found login user model.");
-				data=locations;
-				return data;
-			}
+		findUserDataById(userModel,req.user.id,function(data){
+			callback(data);
 		});
 	}
 	else{
-		sessionDataModel.find({postedId:req.session.id},function(err,locations){
-			if(err)
-			{
-				console.log(err);
-			}
-			else{
-				console.log("found session model.");
-				console.log(locations[0]);
-				console.log("End found session model.");
-				return locations[0]
-			}
+		findSessionDataById(sessionDataModel,req.session.id,function(data){
+			callback(data);
 		});
 	}
-}*/
+}
+
+function findUserDataById(UserModel,id,callback){
+	UserModel.find({postedBy:id},function(err,data){
+		if(err)
+		{
+			console.log(err);
+			callback(null);
+		}
+		else{
+			console.log(data);
+			callback(data);
+		}
+	});
+}
+function findSessionDataById(sessionDataModel,id,callback){
+	sessionDataModel.find({postedBy:id},function(err,data){
+		if(err)
+		{
+			console.log(err);
+			callback(null);
+		}
+		else{
+			if(!data.locations)
+			{
+				console.log("Data does not exist");
+				callback(null);
+			}
+			else{
+				console.log("Data does exist.");
+				callback(data);
+			}
+		}
+
+	});
+}
+
+module.exports.getLocations=getLocations;

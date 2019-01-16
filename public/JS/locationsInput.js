@@ -1,4 +1,4 @@
-function Location(title,address,link,phoneNumber){
+/*function Location(title,address,link,phoneNumber){
 		this.title=title;
 		this.address=address;
 		this.link=link,
@@ -32,7 +32,6 @@ function deleteBtn()
 	for(var i=0;i<trashBtn.length;++i)
 	{
 		trashBtn[i].addEventListener('click',function(){
-			console.log(this.parentElement);
 			var id=this.parentElement.id;
 			var form=document.getElementById(id);
 			form.submit();
@@ -48,23 +47,7 @@ function loadLocations()
 	for(var i=0;i<allLocations.length;++i)
 	{
 
-		scrollDiv.insertAdjacentHTML('beforeend',`<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
-							<div class='col-lg-1 clickable' >
-								<i class='fas fa-map-marker-alt'></i>
-							</div>
-							<div class='col-lg-6 clickable'>
-								<p style='margin-bottom: 0px;'>`+allLocations[i].title+`</p>
-							</div>
-							<div class='col-lg-1'>
-								<form id='deleteForm`+i+`' method='post' action='/delete'>
-									<i class='myTrash fas fa-trash-alt'></i>
-									<input type='text' name='locationId' style='display:none' value='`+allLocations[i].title+`'>
-								</form>
-							</div>
-							<div class='col-lg-4 clickable'>
-								<i style='float:right' class='fas fa-arrow-circle-right '></i>
-							</div>
-						</div>`);
+		scrollDiv.insertAdjacentHTML('beforeend',``);
 
 	}
 }
@@ -93,10 +76,6 @@ content.addEventListener("click",function(){
 		design.classList.remove('selected');
 
 	}
-	addInputs();
-	remove();
-	add();
-	contentOrDesign();
 
 });
 
@@ -122,79 +101,56 @@ design.addEventListener("click",function(){
 
 }
 
-/*function remove(){
-	var removeBtn=document.querySelectorAll(".myTrash");
-
-	for(var i=0;i<removeBtn.length;++i)
-	{
-		removeBtn[i].addEventListener("click",function(){
-			var lenBtn=document.querySelectorAll(".myTrash").length;
-			console.log(lenBtn);
-
-			if(lenBtn!=1)
-			{
-				this.parentElement.parentElement.remove();
-				var value=this.parentElement.parentElement.value;
-				for(var i=0;i<allLocations.length;++i)
-				{
-					if(value==allLocations[i].placeId)
-					{
-						allLocations.splice(i,1);
-					}
-				}
-
-			}
-			console.log("Length:"+allLocations.length);
-			addInputs();
-
-		});
-	}
-}*/
-
 function add(){
-	var addBtn=document.querySelectorAll(".addLocationBtn");
+	var addBtn=document.querySelectorAll(".addLocationBtn")[0];
 
-	for(var i=0;i<addBtn.length;++i)
-	{
-		addBtn[i].addEventListener("click",function(){
-		var table=document.querySelectorAll(".btnContainer");
-		var endOfTable=table[table.length-1];
-		var textNode="Location "+(table.length+1);
-		var newLocation=new Location(textNode,null,null,null,(table.length+1));
 
-		allLocations.push(newLocation);
+	addBtn.addEventListener("click",function(){
+	var table=document.querySelectorAll(".btnContainer");
+	var endOfTable=table[table.length-1];
+	var textNode="Location "+(table.length+1);
+	var newLocation=new Location(textNode,null,null,null,(table.length+1));
 
-		endOfTable.insertAdjacentHTML( 'afterend',`<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
-						<div class='col-lg-1 clickable' value='`+(table.length+1)+`'>
+	allLocations.push(newLocation);
+
+	endOfTable.insertAdjacentHTML( 'afterend',`<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
+						<div class='col-lg-1 clickable' >
 							<i class='fas fa-map-marker-alt'></i>
 						</div>
-						<div class='col-lg-6 clickable' value='`+(table.length+1)+`'>
-							<p style='margin-bottom: 0px;'>Location `+(table.length+1)+`</p>
+						<div class='col-lg-6 clickable'>
+							<p style='margin-bottom: 0px;'>location `+(table.length+1)+`</p>
 						</div>
 						<div class='col-lg-1'>
-							<i class='myTrash fas fa-trash-alt'></i>
+							<form id='deleteForm`+table.length+`' method='post' action='/delete'>
+								<i class='myTrash fas fa-trash-alt'></i>
+								<input type='text' name='locationId' style='display:none' value='`+allLocations[table.length].title+`'>
+							</form>
 						</div>
-						<div class='col-lg-4 clickable' value='`+(table.length+1)+`'>
+						<div class='col-lg-4 clickable'>
 							<i style='float:right' class='fas fa-arrow-circle-right '></i>
 						</div>
 					</div>`);
 
 
-		endOfTable.scrollIntoView();
-		remove();
-		addInputs();
+	endOfTable.scrollIntoView();
+	deleteBtn();
+	addInputs();
 
-		});
-	}
+
+	});
+	
 }
 
 function addInputs()
 {
 	var locationBtn=document.querySelectorAll(".clickable");
+	var index=locationBtn.length/3;
+	console.log(locationBtn.length);
 	var trashBtn=document.querySelectorAll(".myTrash");
-	for(var i=0;i<locationBtn.length;++i)
+	for(let i=0;i<locationBtn.length;++i)
 	{
-		locationBtn[i].addEventListener("click",function(){
+		let button=locationBtn[i];
+		button.addEventListener("click",function(){
 			var positionSlide=document.getElementById("location");
 			positionSlide.style.display="none";
 			var editLocationSlide=document.getElementById("editLocation");
@@ -204,6 +160,7 @@ function addInputs()
 			var titleInput=document.getElementsByName("title")[0];
 			var placeIdInput=document.getElementsByName("place")[0];
 			//IMPORTANT NEED TO FILL THE FIRST FIVE WITH THE OBJECT.SERVER SIDE
+			
 			var found=false;
 			for(var i=0;i<allLocations.length;++i)
 			{
@@ -220,5 +177,5 @@ function addInputs()
 		});
 	}
 
-}
+}*/
 

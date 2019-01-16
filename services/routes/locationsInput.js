@@ -31,6 +31,7 @@ function ClientLocation(title,address,link,phoneNumber,place,position){
 
 router.get('/locationsInput',function (req,res) {
 
+
 	fs.readFile(__dirname +"/../documents/blankMap.js", function (err, data) {
 	    if (err) throw err;
 	   	var newData=obfuscator.obfuscateCode(data);
@@ -41,7 +42,46 @@ router.get('/locationsInput',function (req,res) {
 
 router.post('/delete',function(req,res){
 	var id=req.body.locationId;
-	res.send(id);
+	var clientData=[];
+
+	sessionDataModel.deleteOne({postedBy:req.session.id},function(err,locations){
+		if(err)
+		{
+			console.log(err);
+		}
+		else{
+			console.log(locations);
+			sessionDataModel.find({postedBy:req.session.id},function(err,posts){
+			if(err)
+			{
+				console.log(err);
+			}
+			else{
+				for(var i=0;i<posts.length;++i)
+				{
+					console.log(posts[i].locations[0].title);
+					var newLocation=new ClientLocation(posts[i].locations[0].title,posts[i].locations[0].address,null,null,null,posts[i].locations[0].position);
+
+					clientData.push(newLocation);
+				}
+				var beforeData="var clientPositions="+JSON.stringify(clientData)+";";
+				fs.readFile(__dirname +"/../documents/blankMap.js", function (err, data) {//render the page and once i get the the data back then update the page!!!!!!!!!
+				    if (err) throw err;
+				    var str=beforeData+data;
+				    var newData=beforeData+obfuscator.obfuscateCode(data);
+				    if(clientData.length>0)
+				    {
+				    	 newData="var allLocations="+JSON.stringify(clientData)+";"+newData;
+				    }
+
+				    var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
+				    res.render('locationInput.ejs',{mapJs:newData,gKey:myKey});
+				});
+				}
+			});
+			
+		}
+	});
 });
 
 router.post('/main',function(req,res){
@@ -75,7 +115,7 @@ function updateDataBase(position,address,link,name,number,placeId,req,res)
 {
 	if(req.user!=null)
 	{
-		var location=new locationsModel({
+		var location=new locationsModel([{
 			title:name,
 			address:address,
 			link:link,
@@ -84,26 +124,30 @@ function updateDataBase(position,address,link,name,number,placeId,req,res)
 			position:position,
 			postedBy: req.user.id
 
-		});
+		}]);
 		location.save(function(err,user){
 			if(err)
 			{
 				console.log(err);
 			}
 			else{
-				//res.redirect('/locationsInput');
 			}
 		});
 	}
 	else{
-		var location=new sessionDataModel({
+		var data=[];
+		data.push({
 			title:name,
 			address:address,
 			link:link,
 			phoneNumber:number,
 			placeId:placeId,
 			position:position,
-			postedId: req.session.id
+		});
+		
+		var location=new sessionDataModel({
+			locations:data,
+			postedBy: req.session.id
 		});
 		location.save(function(err,user){
 			if(err)
@@ -111,12 +155,10 @@ function updateDataBase(position,address,link,name,number,placeId,req,res)
 				console.log(err);
 			}
 			else{
-				//res.redirect('/locationsInput');
 				updateJSFile(req,res);
 			}
 		});
 	}
-	console.log("after updateDataBase");
 }
 
 function updateJSFile(req,res)
@@ -136,25 +178,25 @@ function updateJSFile(req,res)
 		});
 	}
 	else{
-		sessionDataModel.find({postedId:req.session.id},function(err,locations){
+		sessionDataModel.find({postedBy:req.session.id},function(err,posts){
 			if(err)
 			{
 				console.log(err);
 			}
 			else{
-				for(var i=0;i<locations.length;++i)
+				for(var i=0;i<posts.length;++i)
 				{
-					var newLocation=new ClientLocation(locations[i].title,locations[i].address,null,null,null,locations[i].position);
+					console.log(posts[i].locations[0].title);
+					var newLocation=new ClientLocation(posts[i].locations[0].title,posts[i].locations[0].address,null,null,null,posts[i].locations[0].position);
 
 					clientData.push(newLocation);
 				}
-				var beforeData="var clientPositions="+JSON.stringify(clientData)+";\n"
+				var beforeData="var clientPositions="+JSON.stringify(clientData)+";";
 				fs.readFile(__dirname +"/../documents/blankMap.js", function (err, data) {//render the page and once i get the the data back then update the page!!!!!!!!!
 				    if (err) throw err;
 				    var str=beforeData+data;
 				    var newData=beforeData+obfuscator.obfuscateCode(data);
 				    newData="var allLocations="+JSON.stringify(clientData)+";"+newData;
-				    console.log(newData);
 
 				    var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
 				    res.render('locationInput.ejs',{mapJs:newData,gKey:myKey});
@@ -162,5 +204,28 @@ function updateJSFile(req,res)
 			}
 		});
 	}
+}
+
+function dataExist(req,findUserData,findSessionData){
+	if(req.user!=null)
+	{
+		findUserData();
+	}
+	else{
+		findSessionData();
+	}
+}
+function findUserDataById(UserModel,req,id,callback){
+	User.find({postedBy:req.user.id},function(err,data){
+		if(err)
+		{
+			console.log(err);
+			callback(null);
+		}
+		else{
+			console.log(data);
+			callback(data);
+		}
+	});
 }
 module.exports = router;
