@@ -1,9 +1,7 @@
 var addBtn=document.querySelectorAll(".addLocationBtn")[0];
 
 
-addBtn.addEventListener("click",function(){
-	initMap();
-});
+
 function initMap() {
 	var marker=[];
 
@@ -17,7 +15,6 @@ function initMap() {
 
 	for(var i=0;i<locations.length;++i)
 	{
-		console.log("loop:"+i);
 		marker = new google.maps.Marker({
       
 			position:locations[i].position,

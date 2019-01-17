@@ -23,6 +23,7 @@ window.onload = function() {
 	loadLocations(locations);
 	addInputs(locations);
 	addLocation(locations);
+	deleteBtn(locations);
 }
 
 function loadLocations(locations)
@@ -33,7 +34,7 @@ function loadLocations(locations)
 	for(var i=0;i<locations.length;++i)
 	{
 		scrollDiv.insertAdjacentHTML('beforeend',`
-		<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
+		<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20' id=`+locations[i].placeId+`>
 			<div class='col-lg-1 clickable' id=`+locations[i].placeId+` >
 				<i class='fas fa-map-marker-alt'></i>
 			</div>
@@ -42,7 +43,7 @@ function loadLocations(locations)
 			</div>
 			<div class='col-lg-1'>
 				<form id='deleteForm`+locations[i].placeId+`+' method='post' action='/delete'>
-					<i class='myTrash fas fa-trash-alt'></i>
+					<i class='myTrash fas fa-trash-alt' id='`+locations[i].placeId+`'></i>
 					<input type='text' name='locationPlaceId' style='display:none' value='`+locations[i].placeId+`'>
 				</form>
 			</div>
@@ -90,13 +91,12 @@ function addLocation(locations)
 	var num2="-117"+randomNum;
 	num2=Number(num2/10000);
 	num=Number(num/10000);
-	console.log("number:"+num);
 	var newLocation=new Location(textNode,null,null,null,table.length,{lat:num,lng:num2});
 
 	locations.push(newLocation);
 
 	endOfTable.insertAdjacentHTML( 'afterend',`
-		<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
+		<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20' id=`+table.length+`>
 			<div class='col-lg-1 clickable' id=`+table.length+` >
 				<i class='fas fa-map-marker-alt'></i>
 			</div>
@@ -105,7 +105,7 @@ function addLocation(locations)
 			</div>
 			<div class='col-lg-1'>
 				<form id='deleteForm`+table.length+`' method='post' action='/delete'>
-					<i class='myTrash fas fa-trash-alt'></i>
+					<i class='myTrash fas fa-trash-alt' id='`+table.length+`'></i>
 					<input type='text' name='locationPlaceId' style='display:none' value='`+table.length+`'>
 				</form>
 			</div>
@@ -117,9 +117,41 @@ function addLocation(locations)
 	initMap();
 	endOfTable.scrollIntoView();
 	addInputs();
+	deleteBtn(locations);
 	});
 }
+function deleteBtn(locations)
+{
+	var deleteBtn=document.querySelectorAll(".myTrash");
+	for(var i=0;i<deleteBtn.length;++i)
+	{
+		deleteBtn[i].addEventListener("click",function(){
+			var clickContainer=document.querySelectorAll(".btnContainer");
+			if(clickContainer.length>1)
+			{
+				locations.splice(this.id,1);
+				console.log(locations);
+				
+				for(var i=0;i<clickContainer.length;++i)
+				{
 
+					if(clickContainer[i].id==this.id)
+					{
+						console.log("break");
+						console.log(clickContainer[i].id);
+						console.log(this.id);
+						//clickContainer[i].style.display="none";
+						clickContainer[i].remove();
+						initMap();
+					}
+				}
+
+			}
+			
+
+		});
+	}
+}
 /*function Location(title,address,link,phoneNumber){
 		this.title=title;
 		this.address=address;
