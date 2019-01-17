@@ -1,3 +1,125 @@
+	function Location(title,address,link,phoneNumber,place,position){
+		this.title=title;
+		this.address=address;
+		this.link=link;
+		this.phoneNumber=phoneNumber;
+		this.placeId=place;
+		this.position=position;
+};
+var locations=[];
+var location1=new Location("Loation 1",null,null,null,0,{lat:34.132853,lng:-118.5316293});
+locations.push(location1);
+var location1=new Location("Loation 2",null,null,null,1,{lat:34.132853,lng:-117.5316293});
+locations.push(location1);
+var location1=new Location("Loation 3",null,null,null,2,{lat:35.132853,lng:-118.5316293});
+locations.push(location1);
+var location1=new Location("Loation 4",null,null,null,3,{lat:34.232853,lng:-118.7316293});
+locations.push(location1);
+var location1=new Location("Loation 5",null,null,null,4,{lat:34.4553,lng:-117.6316293});
+locations.push(location1);
+
+
+window.onload = function() {
+	loadLocations(locations);
+	addInputs(locations);
+	addLocation(locations);
+}
+
+function loadLocations(locations)
+{
+	var scrollDiv=document.querySelectorAll(".scrollDiv")[0];
+
+
+	for(var i=0;i<locations.length;++i)
+	{
+		scrollDiv.insertAdjacentHTML('beforeend',`
+		<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
+			<div class='col-lg-1 clickable' id=`+locations[i].placeId+` >
+				<i class='fas fa-map-marker-alt'></i>
+			</div>
+			<div class='col-lg-6 clickable' id=`+locations[i].placeId+`>
+				<p style='margin-bottom: 0px;'>`+locations[i].title+`</p>
+			</div>
+			<div class='col-lg-1'>
+				<form id='deleteForm`+locations[i].placeId+`+' method='post' action='/delete'>
+					<i class='myTrash fas fa-trash-alt'></i>
+					<input type='text' name='locationPlaceId' style='display:none' value='`+locations[i].placeId+`'>
+				</form>
+			</div>
+			<div class='col-lg-4 clickable' id=`+locations[i].placeId+`>
+				<i style='float:right' class='fas fa-arrow-circle-right '></i>
+			</div>
+		</div>`);
+	}
+}
+function addInputs(allLocations)
+{
+	var locationBtn=document.querySelectorAll(".clickable");
+	console.log(locationBtn.length);
+	var trashBtn=document.querySelectorAll(".myTrash");
+	for(let i=0;i<locationBtn.length;++i)
+	{
+		let button=locationBtn[i];
+		button.addEventListener("click",function(){
+			var positionSlide=document.getElementById("location");
+			positionSlide.style.display="none";
+			var editLocationSlide=document.getElementById("editLocation");
+			editLocationSlide.style.display="block";
+
+			//fill in the inputs
+			var titleInput=document.getElementsByName("title")[0];
+			var placeIdInput=document.getElementsByName("place")[0];
+			titleInput.value=allLocations[this.id].title;
+			placeIdInput.value=allLocations[this.id].placeId;
+
+		});
+	}
+}
+function addLocation(locations)
+{
+	var addBtn=document.querySelectorAll(".addLocationBtn")[0];
+
+
+	addBtn.addEventListener("click",function(){
+	var table=document.querySelectorAll(".btnContainer");
+	var endOfTable=table[table.length-1];
+	var textNode="Location "+(table.length+1);
+	var randomNum=Math.floor((Math.random() * 10000) + 1);
+	var num="34"+randomNum;
+	var randomNum=Math.floor((Math.random() * 10000) + 1);
+	var num2="-117"+randomNum;
+	num2=Number(num2/10000);
+	num=Number(num/10000);
+	console.log("number:"+num);
+	var newLocation=new Location(textNode,null,null,null,table.length,{lat:num,lng:num2});
+
+	locations.push(newLocation);
+
+	endOfTable.insertAdjacentHTML( 'afterend',`
+		<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
+			<div class='col-lg-1 clickable' id=`+table.length+` >
+				<i class='fas fa-map-marker-alt'></i>
+			</div>
+			<div class='col-lg-6 clickable' id=`+table.length+`>
+				<p style='margin-bottom: 0px;'>`+textNode+`</p>
+			</div>
+			<div class='col-lg-1'>
+				<form id='deleteForm`+table.length+`' method='post' action='/delete'>
+					<i class='myTrash fas fa-trash-alt'></i>
+					<input type='text' name='locationPlaceId' style='display:none' value='`+table.length+`'>
+				</form>
+			</div>
+			<div class='col-lg-4 clickable' id=`+table.length+`>
+				<i style='float:right' class='fas fa-arrow-circle-right '></i>
+			</div>
+		</div>`);
+
+	initMap();
+	endOfTable.scrollIntoView();
+	addInputs();
+	});
+}
+
 /*function Location(title,address,link,phoneNumber){
 		this.title=title;
 		this.address=address;
