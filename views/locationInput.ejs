@@ -27,10 +27,10 @@
 						<a class="btn btn-primary  btn-block addLocationBtn" role="button"><i class="fas fa-plus padding-right-20"></i>Add Location</a>
 					</div>
 					<div class="col-lg-6 padding-top-20" style="padding-left: 33px;">
-						<a href="/locationsInput" class="btn btn-primary  btn-block" role="button">Back</a>
+						<a disabled class="btn btn-primary  btn-block" role="button">Back</a>
 					</div>
 					<div class="col-lg-6 padding-top-20" style="padding-right: 33px;">
-						<a href="/locationsInput" class="btn btn-primary  btn-block" role="button">Next</a>
+						<a class="btn btn-primary  btn-block" role="button">Next</a>
 					</div>
 				</div>
 				<!--end location slide-->
@@ -77,17 +77,22 @@
 								<input class="grey" type="text" name="phoneNumber" placeholder="Company's Phone Number">
 							</div>
 						</div>
+						<input style="display: none;" class="grey" type="text" name="placeId" placeholder="Company's Phone Number">
 
 					</div>
 
 					<div class="col-lg-12 padding-top-20 padding-left-50 padding-right-50 addLocation33">
-						 <input class="btn btn-primary btn-block addLocationBtn" type="submit" value="Add Location">
+						 <a id="submitLocation" class="btn btn-primary  btn-block addLocationBtn" role="button"><i class="fas fa-plus padding-right-20"></i>Save Changes</a>
 					</div>
 				</form>
 
 					<div class="col-lg-6 padding-top-20" style="padding-left: 33px;">
-						<a href="/locationsInput" class="btn btn-primary  btn-block" role="button">Back</a>
+						<a id="backToLocation" class="btn btn-primary  btn-block" role="button">Back</a>
 					</div>
+					<div class="col-lg-6 padding-top-20" style="padding-right: 33px;">
+						<a disabled class="btn btn-primary  btn-block" role="button">Next</a>
+					</div>
+					
 
 				</div>
 				<!--end editlocation slide-->
@@ -98,10 +103,10 @@
 						<p>Design</p>
 					</div>
 					<div class="col-lg-6 padding-top-20" style="padding-left: 33px;">
-						<a href="/locationsInput" class="btn btn-primary  btn-block" role="button">Back</a>
+						<a class="btn btn-primary  btn-block" role="button">Back</a>
 					</div>
 					<div class="col-lg-6 padding-top-20" style="padding-right: 33px;">
-						<a href="/locationsInput" class="btn btn-primary  btn-block" role="button">Next</a>
+						<a class="btn btn-primary  btn-block" role="button">Next</a>
 					</div>
 				</div>
 				<!--end design slide-->
