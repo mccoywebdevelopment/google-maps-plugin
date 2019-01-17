@@ -20,13 +20,12 @@ locations.push(location1);
 //loadLocations->addInputs->add->delete->loadLocations->addInputs->add->delete->loadLocations
 //contentOrDesign
 window.onload = function() {
-	loadLocations(function(){
-		console.log("started")
-	});
+	loadLocations();
+	addLocation();
 }
-
-function loadLocations(callback)
+function loadLocations()
 {
+
 	var scrollDiv=document.querySelectorAll(".scrollDiv")[0];
 	var container=document.querySelectorAll(".btnContainer");
 	for(var i=0;i<container.length;++i)
@@ -37,8 +36,6 @@ function loadLocations(callback)
 	{
 		locations[i].placeId=i;
 	}
-
-
 	for(var i=0;i<locations.length;++i)
 	{
 		scrollDiv.insertAdjacentHTML('beforeend',`
@@ -62,45 +59,16 @@ function loadLocations(callback)
 	}
 	var btnContainer=document.querySelectorAll('.btnContainer');
 	btnContainer[btnContainer.length-1].scrollIntoView();
-	callback(addInputs(function(){
-		console.log("started add inputs");
-	}));
+	deleteBtn();
 	initMap();
 }
-function addInputs(callback)
-{
-	var locationBtn=document.querySelectorAll(".clickable");
-	console.log(locationBtn.length);
-	var trashBtn=document.querySelectorAll(".myTrash");
-	for(let i=0;i<locationBtn.length;++i)
-	{
-		let button=locationBtn[i];
-
-		button.addEventListener("click",function(){
-			var positionSlide=document.getElementById("location");
-			positionSlide.style.display="none";
-			var editLocationSlide=document.getElementById("editLocation");
-			editLocationSlide.style.display="block";
-
-			//fill in the inputs
-			var titleInput=document.getElementsByName("title")[0];
-			var placeIdInput=document.getElementsByName("place")[0];
-			titleInput.value=locations[this.id].title;
-			placeIdInput.value=locations[this.id].placeId;
-
-
-		});
-	}
-	callback(addLocation(function(){
-		console.log("started addLocation");
-	}));
-}
-function addLocation(callback)
+function addLocation()
 {
 	var addBtn=document.querySelectorAll(".addLocationBtn")[0];
 
 
 	addBtn.addEventListener("click",function(){
+		console.log("clicked");
 	var table=document.querySelectorAll(".btnContainer");
 	var endOfTable=table[table.length-1];
 	var textNode="Location "+(table.length+1);
@@ -134,18 +102,13 @@ function addLocation(callback)
 		</div>`);
 	endOfTable.scrollIntoView();
 	initMap();
+	loadLocations();
 
-		callback(deleteBtn(function(){
-			console.log("started deleteBtn");
-		}));
 
 	});
-	callback(deleteBtn(function(){
-			console.log("started deleteBtn");
-		}));
 
 }
-function deleteBtn(callback)
+function deleteBtn()
 {
 	var deleteBtn=document.querySelectorAll(".myTrash");
 	for(var i=0;i<deleteBtn.length;++i)
@@ -167,9 +130,7 @@ function deleteBtn(callback)
 						console.log("after Delete");
 						console.log(locations);
 						var container=document.querySelectorAll(".btnContainer");
-						callback(loadLocations(function(){
-							console.log("started loadLocations");
-						}));
+						loadLocations();
 					}
 				}
 
@@ -177,6 +138,34 @@ function deleteBtn(callback)
 		});
 	}
 }
+/*function addInputs(callback)
+{
+	var locationBtn=document.querySelectorAll(".clickable");
+	console.log(locationBtn.length);
+	var trashBtn=document.querySelectorAll(".myTrash");
+	for(let i=0;i<locationBtn.length;++i)
+	{
+		let button=locationBtn[i];
+
+		button.addEventListener("click",function(){
+			var positionSlide=document.getElementById("location");
+			positionSlide.style.display="none";
+			var editLocationSlide=document.getElementById("editLocation");
+			editLocationSlide.style.display="block";
+
+			//fill in the inputs
+			var titleInput=document.getElementsByName("title")[0];
+			var placeIdInput=document.getElementsByName("place")[0];
+			titleInput.value=locations[this.id].title;
+			placeIdInput.value=locations[this.id].placeId;
+
+
+		});
+	}
+	callback(addLocation(function(){
+		console.log("started addLocation");
+	}));
+}*/
 function updateArray(array,deleteIndex)
 {
 	var newArray=[];
