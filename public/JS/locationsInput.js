@@ -17,18 +17,26 @@ var location1=new Location("Loation 4",null,null,null,3,{lat:34.232853,lng:-118.
 locations.push(location1);
 var location1=new Location("Loation 5",null,null,null,4,{lat:34.4553,lng:-117.6316293});
 locations.push(location1);
-
-
+//loadLocations->addInputs->add->delete->loadLocations->addInputs->add->delete->loadLocations
+//contentOrDesign
 window.onload = function() {
-	loadLocations(locations);
-	addInputs(locations);
-	addLocation(locations);
-	deleteBtn(locations);
+	loadLocations(function(){
+		console.log("started")
+	});
 }
 
-function loadLocations(locations)
+function loadLocations(callback)
 {
 	var scrollDiv=document.querySelectorAll(".scrollDiv")[0];
+	var container=document.querySelectorAll(".btnContainer");
+	for(var i=0;i<container.length;++i)
+	{
+		container[i].remove();
+	}
+	for(var i=0;i<locations.length;++i)
+	{
+		locations[i].placeId=i;
+	}
 
 
 	for(var i=0;i<locations.length;++i)
@@ -52,8 +60,14 @@ function loadLocations(locations)
 			</div>
 		</div>`);
 	}
+	var btnContainer=document.querySelectorAll('.btnContainer');
+	btnContainer[btnContainer.length-1].scrollIntoView();
+	callback(addInputs(function(){
+		console.log("started add inputs");
+	}));
+	initMap();
 }
-function addInputs(allLocations)
+function addInputs(callback)
 {
 	var locationBtn=document.querySelectorAll(".clickable");
 	console.log(locationBtn.length);
@@ -61,6 +75,7 @@ function addInputs(allLocations)
 	for(let i=0;i<locationBtn.length;++i)
 	{
 		let button=locationBtn[i];
+
 		button.addEventListener("click",function(){
 			var positionSlide=document.getElementById("location");
 			positionSlide.style.display="none";
@@ -70,13 +85,17 @@ function addInputs(allLocations)
 			//fill in the inputs
 			var titleInput=document.getElementsByName("title")[0];
 			var placeIdInput=document.getElementsByName("place")[0];
-			titleInput.value=allLocations[this.id].title;
-			placeIdInput.value=allLocations[this.id].placeId;
+			titleInput.value=locations[this.id].title;
+			placeIdInput.value=locations[this.id].placeId;
+
 
 		});
 	}
+	callback(addLocation(function(){
+		console.log("started addLocation");
+	}));
 }
-function addLocation(locations)
+function addLocation(callback)
 {
 	var addBtn=document.querySelectorAll(".addLocationBtn")[0];
 
@@ -113,14 +132,20 @@ function addLocation(locations)
 				<i style='float:right' class='fas fa-arrow-circle-right '></i>
 			</div>
 		</div>`);
-
-	initMap();
 	endOfTable.scrollIntoView();
-	addInputs();
-	deleteBtn(locations);
+	initMap();
+
+		callback(deleteBtn(function(){
+			console.log("started deleteBtn");
+		}));
+
 	});
+	callback(deleteBtn(function(){
+			console.log("started deleteBtn");
+		}));
+
 }
-function deleteBtn(locations)
+function deleteBtn(callback)
 {
 	var deleteBtn=document.querySelectorAll(".myTrash");
 	for(var i=0;i<deleteBtn.length;++i)
@@ -129,7 +154,6 @@ function deleteBtn(locations)
 			var clickContainer=document.querySelectorAll(".btnContainer");
 			if(clickContainer.length>1)
 			{
-				locations.splice(this.id,1);
 				console.log(locations);
 				
 				for(var i=0;i<clickContainer.length;++i)
@@ -137,20 +161,82 @@ function deleteBtn(locations)
 
 					if(clickContainer[i].id==this.id)
 					{
-						console.log("break");
-						console.log(clickContainer[i].id);
-						console.log(this.id);
-						//clickContainer[i].style.display="none";
-						clickContainer[i].remove();
-						initMap();
+						console.log("before Delete");
+						console.log(locations);
+						locations=updateArray(locations,this.id);
+						console.log("after Delete");
+						console.log(locations);
+						var container=document.querySelectorAll(".btnContainer");
+						callback(loadLocations(function(){
+							console.log("started loadLocations");
+						}));
 					}
 				}
 
 			}
-			
-
 		});
 	}
+}
+function updateArray(array,deleteIndex)
+{
+	var newArray=[];
+	for(var i=0;i<array.length;++i)
+	{
+		if(i!=deleteIndex)
+		{
+			newArray.push(array[i]);
+		}
+	}
+	return newArray;
+}
+function contentOrDesign(){
+	var content=document.getElementById('contentBtn');
+	var design=document.getElementById('designBtn');
+
+//click content
+content.addEventListener("click",function(){
+
+
+	//fadeInContent();
+	var designSide=document.getElementById("design");
+	var contentSide=document.getElementById("location");
+	var editLocation=document.getElementById("editLocation");
+
+	contentSide.style.display="block";
+	designSide.style.display="none";
+	editLocation.style.display="none";
+
+	if(this.classList.contains('selected')==false)
+	{
+
+		this.classList.add('selected');
+		var design=document.getElementById('designBtn');
+		design.classList.remove('selected');
+
+	}
+
+});
+
+//click design
+design.addEventListener("click",function(){
+
+	var designSide=document.getElementById("design");
+	var contentSide=document.getElementById("location");
+
+	contentSide.style.display="none";
+	designSide.style.display="block";
+	editLocation.style.display="none";
+
+	if(this.classList.contains('selected')==false)
+	{
+		this.classList.add('selected');
+		this.classList.add('fadeInRight');
+		var content=document.getElementById('contentBtn');
+		content.classList.remove('selected');
+
+	}
+});
+
 }
 /*function Location(title,address,link,phoneNumber){
 		this.title=title;
@@ -164,11 +250,11 @@ function deleteBtn(locations)
 
 };
 
-var allLocations=[];
+var locations=[];
 var location1=new Location("location 1",null,null,null);
-allLocations.push(location1);
+locations.push(location1);
 var location1=new Location("location 2",null,null,null);
-allLocations.push(location1);
+locations.push(location1);
 
 
 
@@ -198,7 +284,7 @@ function loadLocations()
 	var scrollDiv=document.querySelectorAll(".scrollDiv")[0];
 
 
-	for(var i=0;i<allLocations.length;++i)
+	for(var i=0;i<locations.length;++i)
 	{
 
 		scrollDiv.insertAdjacentHTML('beforeend',``);
@@ -265,7 +351,7 @@ function add(){
 	var textNode="Location "+(table.length+1);
 	var newLocation=new Location(textNode,null,null,null,(table.length+1));
 
-	allLocations.push(newLocation);
+	locations.push(newLocation);
 
 	endOfTable.insertAdjacentHTML( 'afterend',`<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20'>
 						<div class='col-lg-1 clickable' >
@@ -277,7 +363,7 @@ function add(){
 						<div class='col-lg-1'>
 							<form id='deleteForm`+table.length+`' method='post' action='/delete'>
 								<i class='myTrash fas fa-trash-alt'></i>
-								<input type='text' name='locationId' style='display:none' value='`+allLocations[table.length].title+`'>
+								<input type='text' name='locationId' style='display:none' value='`+locations[table.length].title+`'>
 							</form>
 						</div>
 						<div class='col-lg-4 clickable'>
@@ -316,12 +402,12 @@ function addInputs()
 			//IMPORTANT NEED TO FILL THE FIRST FIVE WITH THE OBJECT.SERVER SIDE
 			
 			var found=false;
-			for(var i=0;i<allLocations.length;++i)
+			for(var i=0;i<locations.length;++i)
 			{
-				if(this.getAttribute('value')==allLocations[i].placeId)
+				if(this.getAttribute('value')==locations[i].placeId)
 				{
 					found=true;
-					titleInput.value=allLocations[i].title;
+					titleInput.value=locations[i].title;
 				}
 			}
 			if(!found)
