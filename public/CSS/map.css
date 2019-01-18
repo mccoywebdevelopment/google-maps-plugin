@@ -174,3 +174,14 @@ input{
   padding-top: 5px;
   padding-bottom: 5px;
 }
+.noScrollBar::-webkit-scrollbar {
+  overflow:hidden!important;
+  background: red;
+}
+.gm-style .gm-style-iw {
+   overflow:hidden!important;
+}
+.gm-style-iw div * {
+    overflow: hidden !important;
+    line-height: 1.35em;
+}

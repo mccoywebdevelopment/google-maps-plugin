@@ -19,7 +19,7 @@ var HttpClient = function() {
     }
 }
 var locations=[];
-var location1=new Location("Location 1","","","",0,{lat:34.132853,lng:-118.5316293});
+var location1=new Location("Location 1","az","www","",0,{lat:34.132853,lng:-118.5316293});
 locations.push(location1);
 var location1=new Location("Location 2","","","",1,{lat:34.132853,lng:-117.5316293});
 locations.push(location1);
@@ -33,6 +33,10 @@ window.onload = function() {
 	loadLocations();
 	addLocation();
 	contentOrDesign();
+
+window.onbeforeunload = function(){
+  return 'Are you sure you want to leave?';
+};
 }
 function loadLocations()
 {
@@ -84,13 +88,13 @@ function addLocation()
 	var table=document.querySelectorAll(".btnContainer");
 	var endOfTable=table[table.length-1];
 	var textNode="Location "+(table.length+1);
-	var randomNum=Math.floor((Math.random() * 10000) + 1);
+	var randomNum=Math.floor((Math.random() * 10000) + 100);
 	var num="34"+randomNum;
 	var randomNum=Math.floor((Math.random() * 10000) + 1);
 	var num2="-117"+randomNum;
 	num2=Number(num2/10000);
 	num=Number(num/10000);
-	var newLocation=new Location(textNode,null,null,null,table.length,{lat:num,lng:num2});
+	var newLocation=new Location(textNode,"","","",table.length,{lat:num,lng:num2});
 
 	locations.push(newLocation);
 
@@ -172,6 +176,10 @@ function addInputs()
 			placeIdInput.value=locations[this.id].placeId;
 			var addressInput=document.getElementsByName("address")[0];
 			addressInput.value=locations[this.id].address;
+			var linkInput=document.getElementsByName("link")[0];
+			linkInput.value=locations[this.id].link;
+			var phoneNumberInput=document.getElementsByName("phoneNumber")[0];
+			phoneNumberInput.value=locations[this.id].phoneNumber;
 
 
 			submitLocation();
@@ -251,6 +259,49 @@ backBtn.addEventListener("click",function(){
 	editLocation.style.display="none";
 });
 
+
+var toDesign=document.getElementById("toDesign");
+
+toDesign.addEventListener("click",function(){
+	var designSide=document.getElementById("design");
+	var contentSide=document.getElementById("location");
+
+	contentSide.style.display="none";
+	designSide.style.display="block";
+
+	var design=document.getElementById('designBtn');
+
+	if(design.classList.contains('selected')==false)
+	{
+		design.classList.add('selected');
+		design.classList.add('fadeInRight');
+		var content=document.getElementById('contentBtn');
+		content.classList.remove('selected');
+
+	}
+});
+
+var backToLocation=document.getElementById("test");
+
+backToLocation.addEventListener("click",function(){
+	var designSide=document.getElementById("design");
+	var contentSide=document.getElementById("location");
+
+	contentSide.style.display="block";
+	designSide.style.display="none";
+
+	var content=document.getElementById('contentBtn');
+
+	if(content.classList.contains('selected')==false)
+	{
+		var design=document.getElementById('designBtn');
+		design.classList.remove('selected');
+		content.classList.add('selected');
+		content.classList.add('fadeInRight');
+
+	}
+
+	});
 }
 function submitLocation()
 {
@@ -261,10 +312,14 @@ function submitLocation()
 		locations[placeIdInput.value].title=titleInput.value;
 		var addressInput=document.getElementsByName("address")[0];
 		locations[placeIdInput.value].address=addressInput.value;
+		var linkInput=document.getElementsByName("link")[0];
+		locations[placeIdInput.value].link=linkInput.value;
+		var phoneNumberInput=document.getElementsByName("phoneNumber")[0];
+		locations[placeIdInput.value].phoneNumber=phoneNumberInput.value;
 		if(addressInput!=locations[placeIdInput.value].address)
 		{
 			var client = new HttpClient();
-			var urll = "https://maps.googleapis.com/maps/api/geocode/json?address="+locations[placeIdInput.value].address+"&key="+"AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
+			var urll = "https://maps.googleapis.com/maps/api/geocode/json?address="+locations[placeIdInput.value].address+"&key="+key;
 			client.get(urll, function(response) {
 				response=JSON.parse(response);
 				console.log(response);
@@ -274,6 +329,9 @@ function submitLocation()
 					var location=response.results[0].geometry.location;
 					locations[placeIdInput.value].position=location;
 					initMap();
+				}
+				else{
+					alert("No results were found for address:"+locations[placeIdInput.value].address+".");
 				}
 
 				

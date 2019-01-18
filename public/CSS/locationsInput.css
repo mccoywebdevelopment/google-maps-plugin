@@ -125,22 +125,22 @@ li{
 	list-style-type: none;
 }
 
-::-webkit-scrollbar {
+.scrollDiv::-webkit-scrollbar {
   width: 4px;
   margin-right: 4px;
 }
-::-webkit-scrollbar-track {
+.scrollDiv::-webkit-scrollbar-track {
   box-shadow: transparent; 
 }
  
 /* Handle */
-::-webkit-scrollbar-thumb {
+.scrollDiv::-webkit-scrollbar-thumb {
   background: #17E9D9; 
   border-radius: 10px;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+.scrollDiv::-webkit-scrollbar-thumb:hover {
   background: rgba(23,233,217,0.6); 
 }
 

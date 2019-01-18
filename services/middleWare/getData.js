@@ -48,3 +48,4 @@ function findSessionDataById(sessionDataModel,id,callback){
 }
 
 module.exports.getLocations=getLocations;
+module.exports.findSessionDataById=findSessionDataById;

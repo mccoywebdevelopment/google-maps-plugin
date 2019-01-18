@@ -17,12 +17,15 @@ const app=express();
 
 var homePage=require('./services/routes/homePage');
 var locationsInput=require('./services/routes/locationsInput');
-var loginAndRegister=require('./services/routes/loginAndRegister');
+var loginAndRegister=require('./services/routes/mainLoginAndRegister');
 var test=require('./services/routes/test');
+var getCode=require('./services/routes/getCode');
 
 const PORT=3000;
 
-mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app");
+mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app",function(err) {
+    if (err) throw err;
+});
 
 app.use(cookieParser());
 app.use(session({
@@ -55,7 +58,7 @@ app.use(function(req, res, next){
    next();
 });
 
-app.use(homePage,locationsInput,loginAndRegister,test,isLoggedIn);
+app.use(homePage,locationsInput,getCode,loginAndRegister,test,isLoggedIn);
 
 app.listen(PORT,function() {
     console.log("Listening on Port:"+PORT);
