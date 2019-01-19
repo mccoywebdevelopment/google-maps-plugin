@@ -37,31 +37,14 @@ router.post('/loginOrRegister/login',
   function(req, res) {
     res.redirect('/getCode');
 });
-/*router.get('/loginOrRegister/register',function(req,res){
+
+router.get('/loginOrRegister/register',function(req,res){
 	// show register form
 });
 
-router.post('/loginOrRegister/register',function(req,res){
-	// get register infomation
-	// transfer data from session to User
-	// delete session data
-	// if registered redirect to getCode
-});
-
-router.get('/loginOrRegistere/login',function(req,res){
-	// show register form
-});
-
-router.post('/loginOrRegister/login',function(req,res){
-	// get register infomation
-	// transfer data from session to User
-	// delete session data
-	// if registered redirect to getCode
-});
-*/
 router.get("/getCode",isLoggedIn,function(req,res){
 	var user=req.user.id;
-	user=null;
+	user=null;//Get data from session later we will transfer the data.
 	var session=req.session.id;
 	getData.getLocations(req,user,session,userModel,sessionDataModel,function(data){
 		console.log(data);

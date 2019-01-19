@@ -13,7 +13,7 @@ var Location=createData.Location;
 var fs = require("fs");
 
 
-/*router.get('/test2',function(req,res){
+router.get('/test2',function(req,res){
 	var user=req.user;
 	var session=req.session;
 	var location1=new Location("test1","338 E Harvard",null,"480-703-1806",1,{lat:305,lng:23});
@@ -33,7 +33,7 @@ var fs = require("fs");
 		});
 		
 	});
-});*/
+});
 
 function deleteByPlaceId(req,user,session,userModel,sessionDataModel,placeId,callback)
 {

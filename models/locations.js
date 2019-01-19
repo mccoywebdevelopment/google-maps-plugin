@@ -9,6 +9,7 @@ var locationSchema =new mongoose.Schema({
 		link:String,
 		phoneNumber:Number,
 		placeId:Number,
+		uniqueId:String,
 		position:{
 			lat:Number,
 			lng:Number

@@ -9,6 +9,7 @@ var sessionDataSchema =new mongoose.Schema({
 		link:String,
 		phoneNumber:String,
 		placeId:Number,
+		uniqueId:String,
 		position:{
 			lat:Number,
 			lng:Number

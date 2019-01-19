@@ -11,29 +11,39 @@ var createModule=require('../middleWare/create');
 var getData=require('../middleWare/getData');
 var create=require('../middleWare/create');
 var fs = require("fs");
+var getFiles=require('../middleWare/editUserJsFile');
+var crypto = require("crypto");
 
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
 router.get('/locationsInput',function (req,res) {
 	    var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
-	    res.render('locationInput.ejs',{gKey:myKey,mkey:_key});
+
+	    /*getFiles.saveWithOutOb(__dirname + "/../documents/locationsInput.js",__dirname + "/../documents/blankMap.js",
+	    	101,__dirname + "/../../public/usersJS/",function(x){
+	    		console.log(x);
+	    		res.render('locationInput.ejs',{gKey:myKey,mkey:_key});
+	    });*/
+
+
+	/*function getFiles(file1,file2,obfuscator,userId,savedLocation,callback)*/
+	   getFiles.getFiles(__dirname + "/../documents/locationsInput.js",__dirname + "/../documents/blankMap.js",obfuscator,101,__dirname + "/../../public/usersJS/",function(x){
+	    	console.log(x);
+	    	res.render('locationInput.ejs',{gKey:myKey,mkey:_key});
+	    });
 });
 
 router.post('/getData',function(req,res){
 	var data=req.body.data;
 	data=JSON.parse(data);
-	//console.log(JSON.parse(data));
-	
-	create.saveToDatabaseWithObject(req,data,sessionDataModel,userModel,function(x){
+	const id = crypto.randomBytes(8).toString("hex");
+	create.saveToDatabaseWithObject(req,data,sessionDataModel,userModel,id,function(x){
 		console.log("Saved to database");
 		console.log(x);
 	});
 
 	res.redirect("/loginOrRegister/0");
 });
-
-
-
 
 
 module.exports = router;

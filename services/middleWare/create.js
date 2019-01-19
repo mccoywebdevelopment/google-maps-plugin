@@ -7,21 +7,21 @@ saveToDatabaseWithObject(req,user,session,objects,sessionDataModel,userModel,fun
 	res.send(x);
 });*/
 
-function saveToDatabaseWithObject(req,locations,sessionDataModel,userModel,callback)
+function saveToDatabaseWithObject(req,locations,sessionDataModel,userModel,uniqueId,callback)
 {
 	if(req.user!=null)
 	{
-		createUserLocation(req.user.id,userModel,locations,function(data){
+		createUserLocation(req.user.id,userModel,locations,uniqueId,function(data){
 			callback(data);
 		});
 	}
 	else{
-		createSessionLocation(req.session.id,sessionDataModel,locations,function(data){
+		createSessionLocation(req.session.id,sessionDataModel,locations,uniqueId,function(data){
 			callback(data);
 		});
 	}
 }
-function createUserLocation(id,userModel,objects,callback){
+function createUserLocation(id,userModel,objects,uniqueId,callback){
 
 	var locations=[];
 	for(var i=0;i<objects.length;++i){
@@ -31,6 +31,7 @@ function createUserLocation(id,userModel,objects,callback){
 		link:objects[i].link,
 		phoneNumber:objects[i].phoneNumber,
 		placeId:objects[i].placeId,
+		uniqueId:uniqueId,
 		position:objects[i].position
 		};
 		locations.push(newLocation);
@@ -55,7 +56,7 @@ function createUserLocation(id,userModel,objects,callback){
 	});
 
 }
-function createSessionLocation(id,sessionModel,objects,callback){
+function createSessionLocation(id,sessionModel,objects,uniqueId,callback){
 		var locations=[];
 		for(var i=0;i<objects.length;++i){
 			var newLocation={
@@ -64,6 +65,7 @@ function createSessionLocation(id,sessionModel,objects,callback){
 				link:objects[i].link,
 				phoneNumber:objects[i].phoneNumber,
 				placeId:objects[i].placeId,
+				uniqueId:uniqueId,
 				position:objects[i].position
 			};
 			locations.push(newLocation);
