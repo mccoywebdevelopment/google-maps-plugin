@@ -7,9 +7,9 @@ saveToDatabaseWithObject(req,user,session,objects,sessionDataModel,userModel,fun
 	res.send(x);
 });*/
 
-function saveToDatabaseWithObject(req,user,session,locations,sessionDataModel,userModel,callback)
+function saveToDatabaseWithObject(req,locations,sessionDataModel,userModel,callback)
 {
-	if(user!=null)
+	if(req.user!=null)
 	{
 		createUserLocation(req.user.id,userModel,locations,function(data){
 			callback(data);

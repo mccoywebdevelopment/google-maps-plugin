@@ -37,6 +37,15 @@ window.onload = function() {
 window.onbeforeunload = function(){
   return 'Are you sure you want to leave?';
 };
+
+var form=document.getElementById("formData");
+var btn=document.getElementById("buttonData");
+btn.addEventListener("click",function(){
+	var input=document.getElementsByName("data")[0];
+	input.value=JSON.stringify(locations);
+	form.submit();
+});
+
 }
 function loadLocations()
 {

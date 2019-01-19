@@ -9,6 +9,7 @@ var isLoggedIn=require('../middleWare/isLoggedIn');
 var obfuscator=require('../middleWare/obfuscatorCode');
 var createModule=require('../middleWare/create');
 var getData=require('../middleWare/getData');
+var create=require('../middleWare/create');
 var fs = require("fs");
 
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
@@ -18,10 +19,18 @@ router.get('/locationsInput',function (req,res) {
 	    res.render('locationInput.ejs',{gKey:myKey,mkey:_key});
 });
 
-/*router.post('/uploadData',function(req,res){
-	//save session data to database
-	//redirect to login page(popup) to get code.
-});*/
+router.post('/getData',function(req,res){
+	var data=req.body.data;
+	data=JSON.parse(data);
+	//console.log(JSON.parse(data));
+	
+	create.saveToDatabaseWithObject(req,data,sessionDataModel,userModel,function(x){
+		console.log("Saved to database");
+		console.log(x);
+	});
+
+	res.redirect("/loginOrRegister/0");
+});
 
 
 
