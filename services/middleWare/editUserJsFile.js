@@ -1,12 +1,18 @@
 var fs = require("fs");
 function getFiles(file1,file2,obfuscator,userId,savedLocation,callback)
 {
-	combineFiles(file1,file2,function(data){
-		var code=obfuscator.obfuscateCode(data);
-		console.log(typeof code);
-		createUserJsFIle(userId,code,savedLocation);
+	/*combineFiles(file1,file2,function(data){
+		//var code=obfuscator.obfuscateCode(data);
+		createUserJsFIle(userId,obfuscator.obfuscateCode(data),savedLocation);
 		callback(data);
+	});*/
+	combineFiles(file1,file2,function(x){
+		var data=obfuscator.obfuscateCode(x);
+		createUserJsFIle(userId,data,savedLocation);
+		callback(x);
+
 	});
+
 }
 function saveWithOutOb(file1,file2,userId,savedLocation,callback)
 {
@@ -31,7 +37,7 @@ function combineFiles(file1,file2,callback)
 		}
 		else{
 			var variable=data;
-			variable=variable+"/*=============================================================================================================================*/";
+			//variable=variable+"/*=============================================================================================================================*/";
 			fs.readFile(file2,function(err,data){
 				if(err)
 				{

@@ -17,20 +17,8 @@ var crypto = require("crypto");
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
 router.get('/locationsInput',function (req,res) {
-	    var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
-
-	    /*getFiles.saveWithOutOb(__dirname + "/../documents/locationsInput.js",__dirname + "/../documents/blankMap.js",
-	    	101,__dirname + "/../../public/usersJS/",function(x){
-	    		console.log(x);
-	    		res.render('locationInput.ejs',{gKey:myKey,mkey:_key});
-	    });*/
-
-
-	/*function getFiles(file1,file2,obfuscator,userId,savedLocation,callback)*/
-	   getFiles.getFiles(__dirname + "/../documents/locationsInput.js",__dirname + "/../documents/blankMap.js",obfuscator,101,__dirname + "/../../public/usersJS/",function(x){
-	    	console.log(x);
-	    	res.render('locationInput.ejs',{gKey:myKey,mkey:_key});
-	    });
+	var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
+	res.render('locationInput.ejs',{gKey:myKey,mkey:_key});
 });
 
 router.post('/getData',function(req,res){
@@ -41,7 +29,6 @@ router.post('/getData',function(req,res){
 		console.log("Saved to database");
 		console.log(x);
 	});
-
 	res.redirect("/loginOrRegister/0");
 });
 
