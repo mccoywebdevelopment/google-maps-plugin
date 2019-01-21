@@ -48,7 +48,14 @@ router.get("/getCode",isLoggedIn,function(req,res){
 	var session=req.session.id;
 	getData.getLocations(req,user,session,userModel,sessionDataModel,function(data){
 		console.log(data);
-		res.send(data);
+		var code = "\n<div class='col-lg-8 padding-left-60 padding-right-60 padding-top-60 probootstrap-animate fadeInRight probootstrap-animated'>\n"+
+				   "\t<div class='col-lg-12 col-sm-12 col-sm-12 no-pad-rt'>\n"+
+				   "\t\t<div id='map' style='background-color: white;'>\n"+
+				   "\t\t</div>\n"+
+				   "\t</div>\n"+
+				   "</div>";
+		res.render("getCode.ejs",{html:code});
+		//res.send(data);
 	});
 });
 module.exports = router;

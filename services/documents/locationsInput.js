@@ -117,24 +117,6 @@ function addLocation()
 			"<i style='float:right' class='fas fa-arrow-circle-right '></i>"+
 			"</div>"+
 			"</div>");
-		/*endOfTable.insertAdjacentHTML( 'afterend',
-			"<div class='col-lg-12 padding-left-30 padding-right-30 btnContainer padding-top-20' id='"+table.length+"'>"+
-			"<div class='col-lg-1 clickable' id='"+table.length+"'>"+
-			"<i class='fas fa-map-marker-alt'></i>"+
-			"</div>"+
-			"<div class='col-lg-6 clickable' id='"+table.length+"'>"+
-			"<p style='margin-bottom: 0px;'>"+textNode+"</p>"+
-			"</div>"+
-			"<div class='col-lg-1'>"+
-			"<form id='deleteForm"+table.length+"' method='post' action='/delete'>"+
-			"<i class='myTrash fas fa-trash-alt' id='"+table.length+"'></i>"+
-			"<input type='text' name='locationPlaceId' style='display:none' value='"+table.length+"'>"+
-			"</form>"+
-			"</div>"+
-			"<div class='col-lg-4 clickable' id='"+table.length+"'>"+
-			"<i style='float:right' class='fas fa-arrow-circle-right '></i>"+
-			"</div>"+
-			"</div>");*/
 		endOfTable.scrollIntoView();
 		initMap();
 		loadLocations();

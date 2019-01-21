@@ -29,6 +29,7 @@ router.post('/getData',function(req,res){
 		console.log("Saved to database");
 		console.log(x);
 	});
+	
 	res.redirect("/loginOrRegister/0");
 });
 
