@@ -18,6 +18,7 @@ var HttpClient = function() {
         anHttpRequest.send( null );
     }
 }
+var blackWhite=false;
 var locations=[];
 var location1=new Location("Location 1","az","www","",0,{lat:34.132853,lng:-118.5316293});
 locations.push(location1);
@@ -33,6 +34,7 @@ window.onload = function() {
 	loadLocations();
 	addLocation();
 	contentOrDesign();
+	blackOrWhite();
 
 window.onbeforeunload = function(){
   return 'Are you sure you want to leave?';
@@ -350,6 +352,31 @@ function submitLocation()
 		loadLocations();
 
 	});
+}
+function blackOrWhite()
+{
+	var colorBtn=document.querySelectorAll(".btnDefault");
+	for(var i=0;i<colorBtn.length;++i)
+	{
+		colorBtn[i].addEventListener("click",function(){
+			if(this.classList.contains("blackWhite"))
+			{
+				var defaultC=document.querySelectorAll(".default")[0];
+				defaultC.classList.add("notSelected");
+				this.classList.remove("notSelected");
+				blackWhite=true;
+				initMap();
+			}
+			else{
+				var blkWhite=document.querySelectorAll(".blackWhite")[0];
+				blkWhite.classList.add("notSelected");
+				this.classList.remove("notSelected");
+				blackWhite=false;
+				initMap();
+			}
+
+		});
+	}
 }
 
 

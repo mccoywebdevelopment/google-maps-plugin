@@ -1,13 +1,24 @@
 
 function initMap() {
 	var marker=[];
-
+		
 	var infoWindow = new google.maps.InfoWindow();
-	map = new google.maps.Map(document.getElementById('map'), {
+	if(blackWhite)
+	{
+		map = new google.maps.Map(document.getElementById('map'), {
 		center:{lat:34.132853,lng:-117.5316293},
-		zoom: 6
-	});
-
+		zoom: 6,
+		styles: [{
+            		stylers: [{saturation: -100}]
+       			 }],
+		});
+	}
+	else{
+		map = new google.maps.Map(document.getElementById('map'), {
+		center:{lat:34.132853,lng:-117.5316293},
+		zoom: 6,
+		});
+	}
 
 	for(var i=0;i<locations.length;++i)
 	{

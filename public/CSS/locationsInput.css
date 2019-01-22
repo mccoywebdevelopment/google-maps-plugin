@@ -155,3 +155,32 @@ li{
 	padding-left: 33px;
 	padding-right: 33px;
 }
+.btnDefault{
+	background-color: #EFF2F4;
+	-webkit-box-shadow: 0 2px 1px -2px #a0abbe;
+	width: 100%;
+	cursor: pointer;
+	margin-bottom:20px;
+}
+.btnDefault>p{
+	margin-bottom: 0px;
+
+}
+.btnDefault:hover{
+	opacity: 0.60;
+}
+.btnDefault>.col-lg-4>img{
+	width: 50%;
+}
+.btnDefault>.col-lg-6>p{
+	padding-top:6%;
+	margin-bottom: 0px;
+	float: left;
+}
+.btnDefault>.col-lg-1>i{
+	padding-top: 10px;
+}
+.notSelected{
+	opacity: 0.5;
+}
+

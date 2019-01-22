@@ -53,7 +53,12 @@ router.get("/getCode",isLoggedIn,function(req,res){
 				   "\t\t<div id='map' style='background-color: white;'>\n"+
 				   "\t\t</div>\n"+
 				   "\t</div>\n"+
-				   "</div>";
+				   "</div>\n"+
+				   "<script type='text/javascript' src='http://localhost:3000/JS/basicMap.js'></script>\n"+
+				   "<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw&libraries=places&callback=initMap' async defer></script>\n";
+
+
+				   ;
 		res.render("getCode.ejs",{html:code});
 		//res.send(data);
 	});
