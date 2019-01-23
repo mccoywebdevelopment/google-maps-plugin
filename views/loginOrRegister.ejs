@@ -3,31 +3,69 @@
 <link rel="stylesheet" type="text/css" href="/CSS/loginOrRegister.css">
 </head>
 <!--<body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">-->
-<body>
-	<div class="login-page">
-  <div class="form">
-     <%if(errorCode){%>
-      <div class="alert"><%=errorCode%></div>
-    <%}%>
-    <form  action="/loginOrRegister/login" method="post">
-      <input required type="text" placeholder="username" name="username"/>
-      <input required type="password" placeholder="password" name="password" />
-      <input type="submit" class="btn btn-primary btn-block addLocationBtn" role="button"/>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
-    </form>
-  </div>
-</div>
-</body>
+  <body>
+    <div class="container">
+      <div class="row is-table-row">
+        <div class="col-lg-12 margin-top-minus-40">
+          <div class="col-lg-6 signup-form">
+              <form action="/examples/actions/confirmation.php" method="post">
+                <h2>You're on your way to amazing map!</h2>
+                <p class="hint-text">Sign up with your social media account or email address</p>
+                <div class="social-btn text-center">
+                  <div class="col-lg-4">
+                    <a href="#" class="btn btn-primary facebook"><i class="fab fa-facebook-f"></i></a>
+                  </div>
+                  <div class="col-lg-4">
+                    <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a>
+                  </div>
+                  <div class="col-lg-4">
+                    <a href="#" class="btn btn-danger"><i class="fab fa-google-plus-g"></i></a>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="or-seperator"><b>or</b></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" name="email" placeholder="Email Address" required="required">
+                </div>
+                <div class="form-group">
+                  <input type="password"  name="password" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                  <input type="password"  name="confirm_password" placeholder="Confirm Password" required="required">
+                </div>  
+                <div class="form-group">
+                  <button type="submit" class="btn btn-success btn-block signup-btn">Sign Up</button>
+                </div>
+              </form>
+              <div class="text-center ll">Already have an account? <a class="login" href="#">Login here</a></div>
+          </div>    
+          <div class="col-lg-6 other">
+            <div class="stuff">stuff</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    window.onload = function() {
+    var form=document.querySelectorAll('form')[0];
+    var other=document.querySelectorAll('.stuff')[0];
+    var height=form.clientHeight;
+   other.style.height=height+"px";
+  }
+
+  </script>
 
 <!--<div class="login-page">
-  <div class="form">
+<div class="form">
 <form class="register-form">
-      <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
- </div>
+<input type="text" placeholder="name"/>
+<input type="password" placeholder="password"/>
+<input type="text" placeholder="email address"/>
+<button>create</button>
+<p class="message">Already registered? <a href="#">Sign In</a></p>
+</form>
+</div>
 </div>-->
 <%include partials/footer%>

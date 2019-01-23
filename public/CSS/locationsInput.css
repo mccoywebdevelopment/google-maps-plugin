@@ -183,4 +183,4 @@ li{
 .notSelected{
 	opacity: 0.5;
 }
-
+html, body {margin: 0; height: 100%; overflow: hidden}

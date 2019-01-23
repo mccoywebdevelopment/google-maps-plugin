@@ -5,3 +5,14 @@ h1{
 	overflow: hidden;
 	box-shadow: 0 9px 24px -6px #494949!important;*/
 }
+.background{
+	background-color: black;
+}
+.profilePic{
+	width: 200px;
+	border-radius: 50%;
+	border-color: #17EAD9;
+	border-width: 2px;
+	border-style: solid;
+	background-color: #5066c9;
+}
