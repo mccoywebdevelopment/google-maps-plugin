@@ -27,7 +27,7 @@ router.post('/getData',function(req,res){
 	const id = crypto.randomBytes(8).toString("hex");
 	create.saveToDatabaseWithObject(req,data,sessionDataModel,userModel,id,function(x){
 		console.log("Saved to database");
-		console.log(x);
+		//console.log(x);
 	});
 	
 	res.redirect("/loginOrRegister/0");

@@ -49,8 +49,6 @@ function createUserLocation(id,userModel,objects,uniqueId,callback){
 			callback(null);
 		}
 		else{
-			console.log("Successfully saved user data:");
-			console.log(data);
 			callback(data);
 		}
 	});
@@ -83,8 +81,7 @@ function createSessionLocation(id,sessionModel,objects,uniqueId,callback){
 				callback(null);
 			}
 			else{
-				console.log("Successfully saved session data:");
-				console.log(data);
+
 				callback(data);
 			}
 		});

@@ -1,7 +1,7 @@
 var express = require("express");
 var request = require("request");
 var router  = express.Router();
-var userModel = require("../../models/user");
+var user = require("../../models/user");
 var locationsModel=require("../../models/locations");
 var sessionDataModel=require("../../models/sessionData");
 const mongoose=require('mongoose');
@@ -32,18 +32,32 @@ router.get('/loginOrRegister/:errorId',function (req,res) {
 	}
 });
 
-router.post('/loginOrRegister/login', 
-  passport.authenticate('local', { failureRedirect: '/loginOrRegister/201' }),//add :errorId so that i can show the id
-  function(req, res) {
-    res.redirect('/getCode');
-});
+router.post('/loginOrRegister/login',passport.authenticate('local',function(err){
+	if(err)
+	{
+		console.log(err);
+	}
+} ,{ failureRedirect: '/loginOrRegister/201',successRedirect:'/getCode', }));
 
-router.get('/loginOrRegister/register',function(req,res){
-	// show register form
+/*router.post('/loginOrRegister/register', passport.authenticate('local', { failureRedirect: '/loginOrRegister/201' }),function(req, res){
+	res.redirect('/getCode');
+});*/
+router.post("/loginOrRegister/register", function(req, res){
+    var newUser = new user({username: req.body.username});
+    user.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            return res.redirect("/loginOrRegister/201");
+        }
+        passport.authenticate("local")(req, res, function(){
+           res.redirect("/getCode"); 
+        });
+    });
 });
 
 router.get("/getCode",isLoggedIn,function(req,res){
-	var user=req.user.id;
+	res.send("success");
+	/*var user=req.user.id;
 	user=null;//Get data from session later we will transfer the data.
 	var session=req.session.id;
 	getData.getLocations(req,user,session,userModel,sessionDataModel,function(data){
@@ -61,6 +75,6 @@ router.get("/getCode",isLoggedIn,function(req,res){
 				   ;
 		res.render("getCode.ejs",{html:code});
 		//res.send(data);
-	});
+	});*/
 });
 module.exports = router;

@@ -4,13 +4,13 @@
 </head>
 <!--<body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">-->
   <body>
-    <div class="container">
+    <div id="register" class="container">
       <div class="row is-table-row">
         <div class="col-lg-12 margin-top-minus-40">
           <div class="col-lg-6 signup-form">
-              <form action="/examples/actions/confirmation.php" method="post">
-                <h2>You're on your way to amazing map!</h2>
-                <p class="hint-text">Sign up with your social media account or email address</p>
+              <form action="/loginOrRegister/register" method="post">
+                <h2>You're on your way to an amazing map!</h2>
+                <p class="hint-text">Sign up to save your progress.</p>
                 <div class="social-btn text-center">
                   <div class="col-lg-4">
                     <a href="#" class="btn btn-primary facebook"><i class="fab fa-facebook-f"></i></a>
@@ -26,7 +26,7 @@
                   <div class="or-seperator"><b>or</b></div>
                 </div>
                 <div class="form-group">
-                  <input type="email" name="email" placeholder="Email Address" required="required">
+                  <input type="email" name="username" placeholder="Email Address" required="required">
                 </div>
                 <div class="form-group">
                   <input type="password"  name="password" placeholder="Password" required="required">
@@ -38,7 +38,7 @@
                   <button type="submit" class="btn btn-success btn-block signup-btn">Sign Up</button>
                 </div>
               </form>
-              <div class="text-center ll">Already have an account? <a class="login" href="#">Login here</a></div>
+              <div class="text-center ll">Already have an account? <a class="login">Login here</a></div>
           </div>    
           <div class="col-lg-6 other">
             <div class="stuff">stuff</div>
@@ -46,6 +46,45 @@
         </div>
       </div>
     </div>
+
+        <div id="login" class="container">
+      <div class="row is-table-row">
+        <div class="col-lg-12 margin-top-minus-40">
+          <div class="col-lg-3">
+          </div>
+          <div class="col-lg-6 signup-form">
+              <form action="/loginOrRegister/login" method="post">
+                <h2>Login</h2>
+                <div class="social-btn text-center">
+                  <div class="col-lg-4">
+                    <a href="#" class="btn btn-primary facebook"><i class="fab fa-facebook-f"></i></a>
+                  </div>
+                  <div class="col-lg-4">
+                    <a href="#" class="btn btn-info"><i class="fab fa-twitter"></i></a>
+                  </div>
+                  <div class="col-lg-4">
+                    <a href="#" class="btn btn-danger"><i class="fab fa-google-plus-g"></i></a>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="or-seperator"><b>or</b></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" name="username" placeholder="Email Address" required="required">
+                </div>
+                <div class="form-group">
+                  <input type="password"  name="password" placeholder="Password" required="required">
+                </div> 
+                <div class="form-group">
+                  <button type="submit" class="btn btn-success btn-block signup-btn">Login</button>
+                </div>
+              </form>
+              <div class="text-center ll">Don't have an account? <a class="register" href="#">Register here</a></div>
+          </div>    
+        </div>
+      </div>
+    </div>
+
   </body>
   <script>
     window.onload = function() {
@@ -53,8 +92,23 @@
     var other=document.querySelectorAll('.stuff')[0];
     var height=form.clientHeight;
    other.style.height=height+"px";
-  }
 
+   var loginBtn=document.querySelectorAll(".login")[0];
+  loginBtn.addEventListener("click",function(){
+    var register=document.getElementById("register");
+    register.style.display="none";
+    var login=document.getElementById("login");
+    login.style.display="block";
+  });
+  var registerBtn=document.querySelectorAll(".register")[0];
+  registerBtn.addEventListener("click",function(){
+    var login=document.getElementById("login");
+    login.style.display="none";
+    var register=document.getElementById("register");
+    register.style.display="block";
+
+  });
+  }
   </script>
 
 <!--<div class="login-page">

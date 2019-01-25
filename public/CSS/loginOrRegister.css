@@ -1,60 +1,4 @@
 
-/*
-.form {
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  text-align: center;
-}
-.form input {
-  outline: 0;
-  background: #f2f2f2;
-  border: 0;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-.form button {
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  border: 0;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  cursor: pointer;
-}
-.form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
-}
-.form .message {
-  color: #b3b3b3;
-  font-size: 12px;
-}
-.form .message a {
-  color: #17E9D9;
-  text-decoration: none;
-  font-weight: 500;
-}
-.form .register-form {
-  display: none;
-}
-
-body{
-  background: #ECEDEE;
-}
-.addLocationBtn{
-  background:#17E9D9!important;
-  border: 1px solid #17E9D9!important;
-}
-.addLocationBtn:hover{
-  opacity: 0.60;
-}
-.alert {
-  text-align: center;
-  margin-bottom: 5px;
-  color: rgb(255,128,128);
-  margin-left: 0px;
-}*/
 .alert {
   text-align: center;
   margin-bottom: 5px;
@@ -223,4 +167,14 @@ header{
 form{
   padding-left: 50px!important;
   padding-right: 50px!important;
+}
+#login{
+  display: none;
+}
+a{
+  cursor: pointer;
+}
+.register{
+  color: #5F7BEA!important;
+    font-weight: bold;
 }
