@@ -4,7 +4,8 @@ const Schema=mongoose.Schema;
 
 var locationSchema =new mongoose.Schema({
 	locations:[
-		{title:String,
+		{_id:false,
+			title:String,
 		address:String,
 		link:String,
 		phoneNumber:Number,

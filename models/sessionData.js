@@ -4,6 +4,7 @@ const Schema=mongoose.Schema;
 
 var sessionDataSchema =new mongoose.Schema({
 	locations: [{
+		_id:false,
 		title:String,
 		address:String,
 		link:String,

@@ -104,9 +104,12 @@ router.get("/getCode",isLoggedIn,function(req,res){
 			callback(null);
 		}
 		else{
-			var code = "<script src='http://localhost:3000/js/basicMap.js'></script>"+
+			var code = 
 					"<div id='map'></div>"+
+					"<script src='http://localhost:3000/js/basicMap.js'></script>"+
+					"<div id='mapScript'></div>"+
 					"<script src='http://localhost:3000/userData/"+data[0].dataKey+"'></script>";
+					
 					
 			res.render("getCode.ejs",{html:code});
 
@@ -122,10 +125,23 @@ router.get("/userData/:requestId",function(req,res){ //get locations goes here
 			"map.innerHTML='You do not have access to view this';";
 	locationsModel.find({dataKey:requestId}, function (err, docs) {
         if (docs.length){
+        	docs[0].locations._id=null;
+        	console.log(docs);
+        	console.log(docs[0].locations);
+
         	var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
-        	var script="<script src="+myKey+" async defer></script>";
-        	code="var map=document.getElementById('map');"+
-        	"map.insertAdjacentHTML('afterend','"+script+"')";
+        	var script="<script src=\""+myKey+"\" async defer></script>";
+        	console.log(script);
+        	code="var mapScript=document.getElementById('mapScript');"+
+        	"mapScript.insertAdjacentHTML('afterend','"+script+"');";
+        	console.log(code);
+
+
+        	var variables="var blackWhite="+docs[0].styles.isBlack+";var locations="+docs[0].locations+";";
+        	var scriptTags="'<script>"+variables+"</script>'";
+
+        	/*code=code+"var script=document.getElementById('map');"+
+        	"script.insertAdjacentHTML('afterend',"+scriptTags+");";*/
             
         }
         res.render("userData.ejs",{code:code});
