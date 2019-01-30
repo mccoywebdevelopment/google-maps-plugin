@@ -15,8 +15,9 @@ var locationSchema =new mongoose.Schema({
 			lng:Number
 		}
 	}],
-	freeTrial:Number,
-	subscription:Boolean,
+	styles:{
+		isBlack:Boolean
+	},
 	dataKey:String,
 	postedBy: {
 		type: mongoose.Schema.Types.ObjectId,

@@ -15,6 +15,9 @@ var sessionDataSchema =new mongoose.Schema({
 			lng:Number
 		}
 	}],
+	styles:{
+		isBlack:Boolean
+	},
 	postedBy:String,
 
 });

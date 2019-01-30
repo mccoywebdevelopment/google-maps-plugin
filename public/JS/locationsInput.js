@@ -43,8 +43,11 @@ window.onbeforeunload = function(){
 var form=document.getElementById("formData");
 var btn=document.getElementById("buttonData");
 btn.addEventListener("click",function(){
+	var styles={isBlack:blackWhite};
 	var input=document.getElementsByName("data")[0];
+	var input2=document.getElementsByName("styles")[0];
 	input.value=JSON.stringify(locations);
+	input2.value=JSON.stringify(styles);
 	form.submit();
 });
 

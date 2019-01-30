@@ -20,7 +20,6 @@ function findUserDataById(UserModel,id,callback){
 			callback(null);
 		}
 		else{
-			console.log(data);
 			callback(data);
 		}
 	});
@@ -39,8 +38,7 @@ function findSessionDataById(sessionDataModel,id,callback){
 				callback(null);
 			}
 			else{
-				console.log("Data does exist.");
-				callback(data[0].locations);
+				callback(data[0]);
 			}
 		}
 

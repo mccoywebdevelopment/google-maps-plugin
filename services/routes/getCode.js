@@ -13,7 +13,8 @@ var fs = require("fs");
 var passport = require("passport");
 var crypto = require("crypto");
 
-//Submit form on redirect to url!!!!!!
+//Make sure this key is correct & if changed update all users with valid parameters
+var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
 router.get('/loginOrRegister/:errorId',function (req,res) {
 	var errorId=req.params.errorId;
@@ -52,20 +53,19 @@ router.post("/loginOrRegister/register", function(req, res){
         }
         passport.authenticate("local")(req, res, function(){
         	//create user then add session data to user
-        	console.log("UserId:"+req.user.id);
         	getData.findSessionDataById(sessionDataModel,req.session.id,function(data){
         		//transfer data session to user locations
         		var locations=[];
-        		for(var i=0;i<data.length;++i)
+        		for(var i=0;i<data.locations.length;++i)
         		{
         			var location={
-        				title:data[i].title,
-						address:data[i].address,
-						link:data[i].link,
-						phoneNumber:data[i].phoneNumber,
-						placeId:data[i].placeId,
-						uniqueId:data[i].uniqueId,
-						position:data[i].position
+        				title:data.locations[i].title,
+						address:data.locations[i].address,
+						link:data.locations[i].link,
+						phoneNumber:data.locations[i].phoneNumber,
+						placeId:data.locations[i].placeId,
+						uniqueId:data.locations[i].uniqueId,
+						position:data.locations[i].position
         			};
         			locations.push(location);
         		}
@@ -73,6 +73,7 @@ router.post("/loginOrRegister/register", function(req, res){
         		var newUserLocation=new locationsModel({
         			locations:locations,
         			dataKey:idKey,
+        			styles:data.styles,
         			postedBy:req.user.id
 
         		});
@@ -83,7 +84,6 @@ router.post("/loginOrRegister/register", function(req, res){
 						callback(null);
 					}
 					else{
-						console.log("sucessfully saved newUserLocation");
 					}
 				});
 
@@ -104,9 +104,10 @@ router.get("/getCode",isLoggedIn,function(req,res){
 			callback(null);
 		}
 		else{
-			console.log(data);
-			var code = "<div id='map'></div>"+
+			var code = "<script src='http://localhost:3000/js/basicMap.js'></script>"+
+					"<div id='map'></div>"+
 					"<script src='http://localhost:3000/userData/"+data[0].dataKey+"'></script>";
+					
 			res.render("getCode.ejs",{html:code});
 
 		}
@@ -118,20 +119,23 @@ router.get("/getCode",isLoggedIn,function(req,res){
 router.get("/userData/:requestId",function(req,res){ //get locations goes here
 	var requestId=req.params.requestId;
 	var code="var map=document.getElementById('map');"+
-	"map.innerHTML='test';"+
-	"alert(window.location.href)";
+			"map.innerHTML='You do not have access to view this';";
 	locationsModel.find({dataKey:requestId}, function (err, docs) {
-        if (!docs.length){
-            code="var map=document.getElementById('map');"+
-					"map.innerHTML='You do not have access to view this';"+
-					"alert(window.location.href)"
+        if (docs.length){
+        	var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
+        	var script="<script src="+myKey+" async defer></script>";
+        	code="var map=document.getElementById('map');"+
+        	"map.insertAdjacentHTML('afterend','"+script+"')";
+            
         }
-         res.render("userData.ejs",{code:code});
+        res.render("userData.ejs",{code:code});
+         
     });
 	
 	
 });
 
+//get url of user
 router.post("/callback",function(req,res){
 
 	var user=req.body.url

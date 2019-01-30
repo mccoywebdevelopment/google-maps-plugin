@@ -23,11 +23,11 @@ router.get('/locationsInput',function (req,res) {
 
 router.post('/getData',function(req,res){
 	var data=req.body.data;
+	var styles=req.body.styles;
+	styles=JSON.parse(styles);
 	data=JSON.parse(data);
 	const id = crypto.randomBytes(8).toString("hex");
-	create.saveToDatabaseWithObject(req,data,sessionDataModel,userModel,id,function(x){
-		console.log("Saved to database");
-		//console.log(x);
+	create.saveToDatabaseWithObject(req,data,styles,sessionDataModel,userModel,id,function(x){
 	});
 	
 	res.redirect("/loginOrRegister/0");

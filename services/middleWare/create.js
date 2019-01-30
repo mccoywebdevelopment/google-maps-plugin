@@ -7,21 +7,21 @@ saveToDatabaseWithObject(req,user,session,objects,sessionDataModel,userModel,fun
 	res.send(x);
 });*/
 
-function saveToDatabaseWithObject(req,locations,sessionDataModel,userModel,uniqueId,callback)
+function saveToDatabaseWithObject(req,locations,styles,sessionDataModel,userModel,uniqueId,callback)
 {
 	if(req.user!=null)
 	{
-		createUserLocation(req.user.id,userModel,locations,uniqueId,function(data){
+		createUserLocation(req.user.id,userModel,locations,styles,uniqueId,function(data){
 			callback(data);
 		});
 	}
 	else{
-		createSessionLocation(req.session.id,sessionDataModel,locations,uniqueId,function(data){
+		createSessionLocation(req.session.id,sessionDataModel,locations,styles,uniqueId,function(data){
 			callback(data);
 		});
 	}
 }
-function createUserLocation(id,userModel,objects,uniqueId,callback){
+function createUserLocation(id,userModel,objects,styles,uniqueId,callback){
 
 	var locations=[];
 	for(var i=0;i<objects.length;++i){
@@ -39,6 +39,7 @@ function createUserLocation(id,userModel,objects,uniqueId,callback){
 
 	var location=new userModel({
 		locations:locations,
+		styles:styles,
 		postedBy:id
 	});
 
@@ -54,7 +55,7 @@ function createUserLocation(id,userModel,objects,uniqueId,callback){
 	});
 
 }
-function createSessionLocation(id,sessionModel,objects,uniqueId,callback){
+function createSessionLocation(id,sessionModel,objects,styles,uniqueId,callback){
 		var locations=[];
 		for(var i=0;i<objects.length;++i){
 			var newLocation={
@@ -71,6 +72,7 @@ function createSessionLocation(id,sessionModel,objects,uniqueId,callback){
 
 		var location=new sessionModel({
 		locations:locations,
+		styles:styles,
 		postedBy:id
 		});
 
