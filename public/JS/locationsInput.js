@@ -20,7 +20,7 @@ var HttpClient = function() {
 }
 var blackWhite=false;
 var locations=[];
-var location1=new Location("Location 1","az","www","",0,{lat:34.132853,lng:-118.5316293});
+var location1=new Location("Location 1","","","",0,{lat:34.132853,lng:-118.5316293});
 locations.push(location1);
 var location1=new Location("Location 2","","","",1,{lat:34.132853,lng:-117.5316293});
 locations.push(location1);

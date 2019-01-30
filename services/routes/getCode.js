@@ -37,12 +37,11 @@ router.get('/loginOrRegister/:errorId',function (req,res) {
 router.post('/loginOrRegister/login', 
   passport.authenticate('local', { failureRedirect: '/loginOrRegister/201' }),
   function(req, res) {
+  	//add session data to user
     res.redirect('/getCode');
 });
 
-/*router.post('/loginOrRegister/register', passport.authenticate('local', { failureRedirect: '/loginOrRegister/201' }),function(req, res){
-	res.redirect('/getCode');
-});*/
+
 router.post("/loginOrRegister/register", function(req, res){
     var newUser = new userModel({username: req.body.username});
     userModel.register(newUser, req.body.password, function(err, user){
@@ -51,6 +50,45 @@ router.post("/loginOrRegister/register", function(req, res){
             return res.redirect("/loginOrRegister/201");
         }
         passport.authenticate("local")(req, res, function(){
+        	//create user then add session data to user
+        	console.log("UserId:"+req.user.id);
+        	getData.findSessionDataById(sessionDataModel,req.session.id,function(data){
+        		//transfer data session to user locations
+        		console.log("gettt================================");
+        		console.log(data[0]);
+        		console.log("gettt================================");
+        		var locations=[];
+        		for(var i=0;i<data.length;++i)
+        		{
+        			var location={
+        				title:data[i].title,
+						address:data[i].address,
+						link:data[i].link,
+						phoneNumber:data[i].phoneNumber,
+						placeId:data[i].placeId,
+						uniqueId:data[i].uniqueId,
+						position:data[i].position
+        			};
+        			locations.push(location);
+        		}
+        		var newUserLocation=new locationsModel({
+        			locations:locations,
+        			postedBy:req.user.id
+
+        		});
+        		newUserLocation.save(function(err,data){
+					if(err)
+					{
+						console.log(err);
+						callback(null);
+					}
+					else{
+						console.log("sucessfully saved newUserLocation");
+					}
+				});
+
+        	});
+
            res.redirect("/getCode"); 
         });
     });
