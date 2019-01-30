@@ -134,14 +134,16 @@ router.get("/userData/:requestId",function(req,res){ //get locations goes here
         	console.log(script);
         	code="var mapScript=document.getElementById('mapScript');"+
         	"mapScript.insertAdjacentHTML('afterend','"+script+"');";
-        	console.log(code);
+        	console.log("test==========================================");
+        	console.log(docs[0].locations[0]);
 
 
-        	var variables="var blackWhite="+docs[0].styles.isBlack+";var locations="+docs[0].locations+";";
-        	var scriptTags="'<script>"+variables+"</script>'";
+        	var variables="var blackWhite="+docs[0].styles.isBlack+";var locations=["+docs[0].locations+"];";
+        	variables=variables.replace(/(\r\n|\n|\r)/gm, "");
+        	var scriptTags="<script>"+variables+"</script>";
 
-        	/*code=code+"var script=document.getElementById('map');"+
-        	"script.insertAdjacentHTML('afterend',"+scriptTags+");";*/
+        	code=code+"var script=document.getElementById('map');"+
+        	"script.insertAdjacentHTML('afterend',\""+scriptTags+"\");";
             
         }
         res.render("userData.ejs",{code:code});

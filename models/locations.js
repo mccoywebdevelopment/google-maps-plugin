@@ -4,8 +4,9 @@ const Schema=mongoose.Schema;
 
 var locationSchema =new mongoose.Schema({
 	locations:[
-		{_id:false,
-			title:String,
+	{
+		_id:false,
+		title:String,
 		address:String,
 		link:String,
 		phoneNumber:Number,
@@ -14,7 +15,7 @@ var locationSchema =new mongoose.Schema({
 		position:{
 			lat:Number,
 			lng:Number
-		}
+		},
 	}],
 	styles:{
 		isBlack:Boolean

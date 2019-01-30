@@ -22,14 +22,14 @@ var blackWhite=false;
 var locations=[];
 var location1=new Location("Location 1","","","",0,{lat:34.132853,lng:-118.5316293});
 locations.push(location1);
-var location1=new Location("Location 2","","","",1,{lat:34.132853,lng:-117.5316293});
+/*var location1=new Location("Location 2","","","",1,{lat:34.132853,lng:-117.5316293});
 locations.push(location1);
 var location1=new Location("Location 3","","","",2,{lat:35.132853,lng:-118.5316293});
 locations.push(location1);
 var location1=new Location("Location 4","","","",3,{lat:34.232853,lng:-118.7316293});
 locations.push(location1);
 var location1=new Location("Location 5","","","",4,{lat:34.4553,lng:-117.6316293});
-locations.push(location1);
+locations.push(location1);*/
 window.onload = function() {
 	loadLocations();
 	addLocation();

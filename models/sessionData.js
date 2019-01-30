@@ -14,7 +14,7 @@ var sessionDataSchema =new mongoose.Schema({
 		position:{
 			lat:Number,
 			lng:Number
-		}
+		},
 	}],
 	styles:{
 		isBlack:Boolean
