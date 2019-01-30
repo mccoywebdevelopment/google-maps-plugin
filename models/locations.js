@@ -15,6 +15,9 @@ var locationSchema =new mongoose.Schema({
 			lng:Number
 		}
 	}],
+	freeTrial:Number,
+	subscription:Boolean,
+	dataKey:String,
 	postedBy: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
