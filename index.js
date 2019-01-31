@@ -16,11 +16,7 @@ const app=express();
 
 //requiring routes
 
-var homePage=require('./services/routes/homePage');
-var locationsInput=require('./services/routes/locationsInput');
-var loginAndRegister=require('./services/routes/mainLoginAndRegister');
-var test=require('./services/routes/test');
-var getCode=require('./services/routes/getCode');
+
 
 var PORT=3000;
 
@@ -73,6 +69,12 @@ app.use(function(req, res, next){
    res.locals.currentUser = req.user;
    next();
 });
+
+var homePage=require('./services/routes/homePage');
+var locationsInput=require('./services/routes/locationsInput');
+var loginAndRegister=require('./services/routes/mainLoginAndRegister');
+var test=require('./services/routes/test');
+var getCode=require('./services/routes/getCode');
 
 app.use(homePage,locationsInput,getCode,loginAndRegister,test,isLoggedIn);
 
