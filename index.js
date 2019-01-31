@@ -21,11 +21,14 @@ var loginAndRegister=require('./services/routes/mainLoginAndRegister');
 var test=require('./services/routes/test');
 var getCode=require('./services/routes/getCode');
 
-const PORT=3000;
+//const PORT=3000;
+const PORT=process.env.PORT;
+mongoose.connect(process.env.MONGODB_URI.toString());
 
-mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app",function(err) {
+
+/*mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app",function(err) {
     if (err) throw err;
-});
+});*/
 
 app.use(cookieParser());
 app.use(session({
