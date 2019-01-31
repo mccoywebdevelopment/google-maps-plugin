@@ -33,7 +33,5 @@
   "engines": {
     "node": "10.13"
   },
-  "devDependencies": {
-    "javascript-obfuscator": "^0.18.1"
-  }
+  "devDependencies": {}
 }
