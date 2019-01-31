@@ -11,6 +11,7 @@ const mongoose=require('mongoose');
 var isLoggedIn=require('./services/middleWare/isLoggedIn');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var path=
 const app=express();
 
 //requiring routes
@@ -48,9 +49,13 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
+//app.use(bodyParser.urlencoded({extended: true}));
+//app.set("view engine", "ejs");
+//app.use(express.static(__dirname + "/public"));
+ app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: false}));
+  app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use(require("express-session")({
     secret: "my jalos slkdefgrbrfgdargajf;al l",
