@@ -11,7 +11,7 @@ const mongoose=require('mongoose');
 var isLoggedIn=require('./services/middleWare/isLoggedIn');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var path=
+var path=require('path');
 const app=express();
 
 //requiring routes
