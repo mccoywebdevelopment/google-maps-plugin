@@ -104,7 +104,8 @@ router.get("/getCode",isLoggedIn,function(req,res){
 			callback(null);
 		}
 		else{
-			var code = "<iframe src='http://localhost:3000/userData/"+data[0].dataKey+"'></iframe>";					
+			var code = "\n<iframe src='http://localhost:3000/userData/"+data[0].dataKey+"'>"+
+			"\n</iframe>";					
 			res.render("getCode.ejs",{html:code});
 
 		}
