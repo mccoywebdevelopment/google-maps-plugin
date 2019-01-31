@@ -22,8 +22,18 @@ var test=require('./services/routes/test');
 var getCode=require('./services/routes/getCode');
 
 //const PORT=3000;
-const PORT=process.env.PORT;
-mongoose.connect(process.env.MONGODB_URI.toString());
+if(process.env.PORT && process.env.MONGODB_URI.toString())
+{
+    const PORT=process.env.PORT;
+    mongoose.connect(process.env.MONGODB_URI.toString());
+}
+else{
+  PORT=3000;
+  mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app",function(err) {
+    if (err) throw err;
+});
+}
+
 
 
 /*mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app",function(err) {
