@@ -93,7 +93,7 @@ router.post("/loginOrRegister/register", function(req, res){
         });
     });
 });
-
+//test
 router.get("/getCode",isLoggedIn,function(req,res){
 	var user=req.user.id;
 	var session=req.session.id;
