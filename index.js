@@ -22,6 +22,7 @@ var test=require('./services/routes/test');
 var getCode=require('./services/routes/getCode');
 
 var PORT=3000;
+
 if(process.env.PORT && process.env.MONGODB_URI.toString())
 {
     const PORT=process.env.PORT;
@@ -73,7 +74,7 @@ app.use(function(req, res, next){
 
 app.use(homePage,locationsInput,getCode,loginAndRegister,test,isLoggedIn);
 
-app.listen(PORT,function() {
+app.listen( process.env.PORT || 3000,function() {
     console.log("Listening on Port:"+PORT);
 });
 
