@@ -21,7 +21,7 @@ var loginAndRegister=require('./services/routes/mainLoginAndRegister');
 var test=require('./services/routes/test');
 var getCode=require('./services/routes/getCode');
 
-//const PORT=3000;
+var PORT=3000;
 if(process.env.PORT && process.env.MONGODB_URI.toString())
 {
     const PORT=process.env.PORT;
