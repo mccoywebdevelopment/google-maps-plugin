@@ -1,0 +1,38 @@
+body{
+	background-color: #ECEDEE;
+}
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.cardContainer {
+  padding: 2px 16px;
+}
+.noSpace {
+    height: calc(100% - 61px);
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+iframe {    
+ border: 0;
+}
+html, body {margin: 0; height: 100%; overflow: hidden}
+.myThumbnail:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

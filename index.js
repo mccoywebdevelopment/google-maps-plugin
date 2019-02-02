@@ -27,7 +27,7 @@ if(process.env.PORT && process.env.MONGODB_URI.toString())
 }
 else{
   PORT=3000;
-  mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app",function(err) {
+  mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds113495.mlab.com:13495/testgmaps",function(err) {
     if (err) throw err;
 });
 }

@@ -84,6 +84,9 @@ router.post("/loginOrRegister/register", function(req, res){
 						callback(null);
 					}
 					else{
+						sessionDataModel.find({postedBy:req.session.id}).remove(function(){
+							console.log("Deleted session data");
+						});
 					}
 				});
 

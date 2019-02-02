@@ -8,6 +8,7 @@ function initMap() {
 		map = new google.maps.Map(document.getElementById('map'), {
 		center:{lat:34.132853,lng:-117.5316293},
 		zoom: 6,
+		streetViewControl: false,
 		styles: [{
             		stylers: [{saturation: -100}]
        			 }],
@@ -16,6 +17,7 @@ function initMap() {
 	else{
 		map = new google.maps.Map(document.getElementById('map'), {
 		center:{lat:34.132853,lng:-117.5316293},
+		streetViewControl: false,
 		zoom: 6,
 		});
 	}
