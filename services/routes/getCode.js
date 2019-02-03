@@ -26,9 +26,19 @@ router.get('/loginOrRegister/:errorId',function (req,res) {
 	if(req.isAuthenticated())
 	{
 		//created another one get user data id
-		console.log(errorId);
+		/*locationsModel.find({postedBy:req.user.id}).sort({_id:'descending'}).limit(1).exec(function(err, data){
+			if(err)
+			{
+				console.log(err);
+			}
+			else{
+				console.log("latestOne:");
+				console.log(data);
+
+			}
+		});*/
+
 		res.redirect('/getCode');
-		console.log("got in");
 	}
 	else{
 		console.log(errorId);
@@ -63,13 +73,16 @@ router.post("/loginOrRegister/register", function(req, res){
 router.get("/getCode",isLoggedIn,function(req,res){
 	var user=req.user.id;
 	var session=req.session.id;
-	locationsModel.find({postedBy:user},function(err,data){
+	locationsModel.find({postedBy:user}).sort({_id:'descending'}).limit(1).exec(function(err, data){
 		if(err)
 		{
 			console.log(err);
 			callback(null);
 		}
 		else{
+			console.log("DATA FOUND================================================");
+			console.log(data);
+			
 			if(!process.env.PORT || !process.env.MONGODB_URI.toString())
 			{
 				var code = "\n<iframe style='width:800px;height: 400px;' src='http://localhost:3000/userData/"+data[0].dataKey+"'>"+
@@ -94,7 +107,7 @@ router.get("/userData/:requestId",function(req,res){ //get locations goes here
 	locationsModel.find({dataKey:requestId}, function (err, docs) {
         if (docs.length){
 
-        	var variables="var blackWhite="+docs[0].styles.isBlack+";var locations=["+docs[0].locations+"];";
+        	var variables="var blackWhite="+docs[0].styles.isBlack+";var locations=["+docs[docs.length-1].locations+"];";
         	variables=variables.replace(/(\r\n|\n|\r)/gm, "");
         	var scriptTags="<script>"+variables+"</script>";
 
@@ -134,7 +147,6 @@ router.get("/userDashboard",isLoggedIn,function(req,res){
 		}
 	});
 });
-
 function registerUser(req,res,userModel,sessionDataModel,locationsModel,crypto,passport,newUser,password,callback)
 {
 	    userModel.register(newUser, password, function(err, user){

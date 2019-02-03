@@ -6,22 +6,25 @@ objects.push(location2);
 saveToDatabaseWithObject(req,user,session,objects,sessionDataModel,userModel,function(x){
 	res.send(x);
 });*/
+var crypto = require("crypto");
 
-function saveToDatabaseWithObject(req,locations,styles,sessionDataModel,userModel,uniqueId,callback)
+function saveToDatabaseWithObject(req,locations,styles,sessionDataModel,locationModel,uniqueId,callback)
 {
 	if(req.user!=null)
 	{
-		createUserLocation(req.user.id,userModel,locations,styles,uniqueId,function(data){
+		createUserLocation(req.user.id,locationModel,locations,styles,uniqueId,function(data){
+			console.log("createUserLocation");
 			callback(data);
 		});
 	}
 	else{
 		createSessionLocation(req.session.id,sessionDataModel,locations,styles,uniqueId,function(data){
+			console.log("createSessionLocation");
 			callback(data);
 		});
 	}
 }
-function createUserLocation(id,userModel,objects,styles,uniqueId,callback){
+function createUserLocation(id,locationModel,objects,styles,uniqueId,callback){
 
 	var locations=[];
 	for(var i=0;i<objects.length;++i){
@@ -36,10 +39,11 @@ function createUserLocation(id,userModel,objects,styles,uniqueId,callback){
 		};
 		locations.push(newLocation);
 	}
-
-	var location=new userModel({
+	const idKey = crypto.randomBytes(8).toString("hex");
+	var location=new locationModel({
 		locations:locations,
 		styles:styles,
+		dataKey:idKey,
 		postedBy:id
 	});
 

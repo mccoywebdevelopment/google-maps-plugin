@@ -26,8 +26,13 @@ router.post('/getData',function(req,res){
 	var styles=req.body.styles;
 	styles=JSON.parse(styles);
 	data=JSON.parse(data);
+	console.log("data====================================================");
+	console.log(data);
+	console.log("data====================================================");
 	const id = crypto.randomBytes(8).toString("hex");
-	create.saveToDatabaseWithObject(req,data,styles,sessionDataModel,userModel,id,function(x){
+	create.saveToDatabaseWithObject(req,data,styles,sessionDataModel,locationsModel,id,function(x){
+		console.log("Save to Database=========================================================");
+		console.log(x);
 	});
 	
 	res.redirect("/loginOrRegister/0");
