@@ -25,8 +25,10 @@ router.get('/loginOrRegister/:errorId',function (req,res) {
 	}
 	if(req.isAuthenticated())
 	{
+		//created another one get user data id
 		console.log(errorId);
 		res.redirect('/getCode');
+		console.log("got in");
 	}
 	else{
 		console.log(errorId);
@@ -46,57 +48,18 @@ router.post('/loginOrRegister/login',
 
 router.post("/loginOrRegister/register", function(req, res){
     var newUser = new userModel({username: req.body.username});
-    userModel.register(newUser, req.body.password, function(err, user){
-        if(err){
-            console.log(err);
-            return res.redirect("/loginOrRegister/201");
-        }
-        passport.authenticate("local")(req, res, function(){
-        	//create user then add session data to user
-        	getData.findSessionDataById(sessionDataModel,req.session.id,function(data){
-        		//transfer data session to user locations
-        		var locations=[];
-        		for(var i=0;i<data.locations.length;++i)
-        		{
-        			var location={
-        				title:data.locations[i].title,
-						address:data.locations[i].address,
-						link:data.locations[i].link,
-						phoneNumber:data.locations[i].phoneNumber,
-						placeId:data.locations[i].placeId,
-						uniqueId:data.locations[i].uniqueId,
-						position:data.locations[i].position
-        			};
-        			locations.push(location);
-        		}
-        		const idKey = crypto.randomBytes(8).toString("hex");
-        		var newUserLocation=new locationsModel({
-        			locations:locations,
-        			dataKey:idKey,
-        			styles:data.styles,
-        			postedBy:req.user.id
-
-        		});
-        		newUserLocation.save(function(err,data){
-					if(err)
-					{
-						console.log(err);
-						callback(null);
-					}
-					else{
-						sessionDataModel.find({postedBy:req.session.id}).remove(function(){
-							console.log("Deleted session data");
-						});
-					}
-				});
-
-        	});
-
-           res.redirect("/getCode"); 
-        });
+    var password=req.body.password;
+    registerUser(req,res,userModel,sessionDataModel,locationsModel,crypto,passport,newUser,password,function(x){
+    	if(x==null)
+    	{
+    		console.log(error);
+    	}
+    	else{
+    		res.redirect(x);
+    	}
     });
 });
-//test
+
 router.get("/getCode",isLoggedIn,function(req,res){
 	var user=req.user.id;
 	var session=req.session.id;
@@ -107,10 +70,17 @@ router.get("/getCode",isLoggedIn,function(req,res){
 			callback(null);
 		}
 		else{
-			var code = "\n<iframe style='width:800px;height: 400px;' src='https://gmapsmccoy.herokuapp.com/userData/"+data[0].dataKey+"'>"+
-			"\n</iframe>";					
+			if(!process.env.PORT || !process.env.MONGODB_URI.toString())
+			{
+				var code = "\n<iframe style='width:800px;height: 400px;' src='http://localhost:3000/userData/"+data[0].dataKey+"'>"+
+						   "\n</iframe>";
+			}
+			else{
+				var code = "\n<iframe style='width:800px;height: 400px;' src='https://gmapsmccoy.herokuapp.com/userData/"+data[0].dataKey+"'>"+
+						   "\n</iframe>";					
+			}
 			res.render("getCode.ejs",{html:code});
-
+	
 		}
 	});
 		
@@ -147,8 +117,78 @@ router.get("/userData/:requestId",function(req,res){ //get locations goes here
 
 //get url of user
 router.post("/callback",function(req,res){
-
 	var user=req.body.url
 
 });
+
+router.get("/userDashboard",isLoggedIn,function(req,res){
+	var userId=req.user.id;
+	locationsModel.find({postedBy:userId},function(err,data){
+		if(err)
+		{
+			console.log(err);
+		}
+		else{
+
+			res.render('userDashboard.ejs');
+		}
+	});
+});
+
+function registerUser(req,res,userModel,sessionDataModel,locationsModel,crypto,passport,newUser,password,callback)
+{
+	    userModel.register(newUser, password, function(err, user){
+        if(err){
+            console.log(err);
+            callback("/loginOrRegister/201");
+        }
+        passport.authenticate("local")(req, res, function(){
+        	//create user then add session data to user
+        	getData.findSessionDataById(sessionDataModel,req.session.id,function(data){
+        		//transfer data session to user locations
+        		var locations=[];
+        		for(var i=0;i<data.locations.length;++i)
+        		{
+        			var location={
+        				title:data.locations[i].title,
+						address:data.locations[i].address,
+						link:data.locations[i].link,
+						phoneNumber:data.locations[i].phoneNumber,
+						placeId:data.locations[i].placeId,
+						uniqueId:data.locations[i].uniqueId,
+						position:data.locations[i].position
+        			};
+        			locations.push(location);
+        		}
+        		var currentUser=user.id;
+        		const idKey = crypto.randomBytes(8).toString("hex");
+        		var newUserLocation=new locationsModel({
+        			locations:locations,
+        			dataKey:idKey,
+        			styles:data.styles,
+        			postedBy:currentUser
+
+        		});
+        		newUserLocation.save(function(err,data){
+					if(err)
+					{
+						console.log(err);
+						callback(null);
+					}
+					else{
+						sessionDataModel.find({postedBy:req.session.id}).deleteOne(function(err){
+							if(err)
+							{
+								console.log(err);
+								callback(null);
+							}
+						});
+					}
+				});
+
+        	});
+           callback("/getCode"); 
+        });
+    });
+}
 module.exports = router;

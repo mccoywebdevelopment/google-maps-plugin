@@ -13,9 +13,6 @@ var Location=createData.Location;
 var fs = require("fs");
 
 
-router.get('/test2',function(req,res){
-	res.render('userDashboard.ejs');
-});
 
 
 
