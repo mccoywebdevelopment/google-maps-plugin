@@ -12,6 +12,7 @@ var getData=require("../middleWare/getData");
 var fs = require("fs");
 var passport = require("passport");
 var crypto = require("crypto");
+var check=require('../middleWare/isUserLoggedOn');
 
 //Make sure this key is correct & if changed update all users with valid parameters
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
@@ -25,24 +26,11 @@ router.get('/loginOrRegister/:errorId',function (req,res) {
 	}
 	if(req.isAuthenticated())
 	{
-		//created another one get user data id
-		/*locationsModel.find({postedBy:req.user.id}).sort({_id:'descending'}).limit(1).exec(function(err, data){
-			if(err)
-			{
-				console.log(err);
-			}
-			else{
-				console.log("latestOne:");
-				console.log(data);
-
-			}
-		});*/
-
 		res.redirect('/getCode');
 	}
 	else{
 		console.log(errorId);
-		res.render('loginOrRegister.ejs',{errorCode,errorCode});
+		res.render('loginOrRegister.ejs',{errorCode:errorCode,isLoggedIn:check.isUserLoggedOn(req,res)});
 	}
 });
 
@@ -92,7 +80,7 @@ router.get("/getCode",isLoggedIn,function(req,res){
 				var code = "\n<iframe style='width:800px;height: 400px;' src='https://gmapsmccoy.herokuapp.com/userData/"+data[0].dataKey+"'>"+
 						   "\n</iframe>";					
 			}
-			res.render("getCode.ejs",{html:code});
+			res.render("getCode.ejs",{html:code,isLoggedIn:check.isUserLoggedOn(req,res)});
 	
 		}
 	});
@@ -142,8 +130,10 @@ router.get("/userDashboard",isLoggedIn,function(req,res){
 			console.log(err);
 		}
 		else{
+			console.log("Map Data============================");
+			console.log(data);
 
-			res.render('userDashboard.ejs');
+			res.render('userDashboard.ejs',{isLoggedIn:check.isUserLoggedOn(req,res),usersMaps:data});
 		}
 	});
 });

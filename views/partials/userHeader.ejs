@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
- <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -16,8 +16,13 @@
   <link rel="stylesheet" href="/CSS/custom.css">
   <link rel="stylesheet" href="/CSS/header.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/fontawesome.css" integrity="sha384-jLuaxTTBR42U2qJ/pm4JRouHkEDHkVqH0T1nyQXn1mZ7Snycpf6Rl25VBNthU4z0" crossorigin="anonymous">
-
-
+  <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+.dropdown-menu>li>a:hover{
+  color: #17E9D9!important;
+}
+</style>
 
 
 
@@ -34,8 +39,15 @@
             <li><a href="/">Home</a></li>
             <li><a href="/#hire">Hire</a></li>
             <li><a href="pricing.html">Pricing</a></li>
-            <li><a href="/login">Log in</a></li>
-            <li class="probootstrap-cta"><a href="/register">Sign up</a></li>
+            <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Profile
+            <span class="caret"></span></a>
+            <ul style="background-color: #5B7FE9;" class="dropdown-menu">
+              <li><a href="/userDashboard">Dashboard</a></li>
+              <li><a href="#">Plans</a></li>
+              <li><a href="#">Sign Out</a></li>
+            </ul>
+          </li>
           </ul>
           <div class="extra-text visible-xs">
             <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>

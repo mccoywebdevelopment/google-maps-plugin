@@ -13,12 +13,13 @@ var create=require('../middleWare/create');
 var fs = require("fs");
 var getFiles=require('../middleWare/editUserJsFile');
 var crypto = require("crypto");
+var check=require('../middleWare/isUserLoggedOn');
 
 var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
 
 router.get('/locationsInput',function (req,res) {
 	var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
-	res.render('locationInput.ejs',{gKey:myKey,mkey:_key});
+	res.render('locationInput.ejs',{gKey:myKey,mkey:_key,isLoggedIn:check.isUserLoggedOn(req,res)});
 });
 
 router.post('/getData',function(req,res){
