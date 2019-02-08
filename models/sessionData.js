@@ -19,6 +19,7 @@ var sessionDataSchema =new mongoose.Schema({
 	styles:{
 		isBlack:Boolean
 	},
+	mapName:String,
 	postedBy:String,
 
 });

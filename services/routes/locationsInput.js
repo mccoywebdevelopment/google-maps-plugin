@@ -25,13 +25,16 @@ router.get('/locationsInput',function (req,res) {
 router.post('/getData',function(req,res){
 	var data=req.body.data;
 	var styles=req.body.styles;
+	var mapName=req.body.mapName;
+	console.log("mapName");
+	console.log(mapName);
 	styles=JSON.parse(styles);
 	data=JSON.parse(data);
 	console.log("data====================================================");
 	console.log(data);
 	console.log("data====================================================");
 	const id = crypto.randomBytes(8).toString("hex");
-	create.saveToDatabaseWithObject(req,data,styles,sessionDataModel,locationsModel,id,function(x){
+	create.saveToDatabaseWithObject(req,data,styles,mapName,sessionDataModel,locationsModel,id,function(x){
 		console.log("Save to Database=========================================================");
 		console.log(x);
 	});

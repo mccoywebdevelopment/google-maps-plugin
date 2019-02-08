@@ -6,7 +6,7 @@ var user = require("../../models/user");
 
 // show register form
 router.get("/register", function(req, res){
-   res.render("register"); 
+   res.render("register.ejs"); 
 });
 
 //handle sign up logic
@@ -25,7 +25,7 @@ router.post("/register", function(req, res){
 
 //show login form
 router.get("/login", function(req, res){
-   res.render("login");
+   res.render("login.ejs");
 });
 
 //handling login logic

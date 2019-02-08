@@ -8,23 +8,23 @@ saveToDatabaseWithObject(req,user,session,objects,sessionDataModel,userModel,fun
 });*/
 var crypto = require("crypto");
 
-function saveToDatabaseWithObject(req,locations,styles,sessionDataModel,locationModel,uniqueId,callback)
+function saveToDatabaseWithObject(req,locations,styles,mapName,sessionDataModel,locationModel,uniqueId,callback)
 {
 	if(req.user!=null)
 	{
-		createUserLocation(req.user.id,locationModel,locations,styles,uniqueId,function(data){
+		createUserLocation(req.user.id,locationModel,locations,styles,mapName,uniqueId,function(data){
 			console.log("createUserLocation");
 			callback(data);
 		});
 	}
 	else{
-		createSessionLocation(req.session.id,sessionDataModel,locations,styles,uniqueId,function(data){
+		createSessionLocation(req.session.id,sessionDataModel,locations,styles,mapName,uniqueId,function(data){
 			console.log("createSessionLocation");
 			callback(data);
 		});
 	}
 }
-function createUserLocation(id,locationModel,objects,styles,uniqueId,callback){
+function createUserLocation(id,locationModel,objects,styles,mapName,uniqueId,callback){
 
 	var locations=[];
 	for(var i=0;i<objects.length;++i){
@@ -44,6 +44,7 @@ function createUserLocation(id,locationModel,objects,styles,uniqueId,callback){
 		locations:locations,
 		styles:styles,
 		dataKey:idKey,
+		mapName:mapName,
 		postedBy:id
 	});
 
@@ -59,7 +60,7 @@ function createUserLocation(id,locationModel,objects,styles,uniqueId,callback){
 	});
 
 }
-function createSessionLocation(id,sessionModel,objects,styles,uniqueId,callback){
+function createSessionLocation(id,sessionModel,objects,styles,mapName,uniqueId,callback){
 		var locations=[];
 		for(var i=0;i<objects.length;++i){
 			var newLocation={
@@ -77,6 +78,7 @@ function createSessionLocation(id,sessionModel,objects,styles,uniqueId,callback)
 		var location=new sessionModel({
 		locations:locations,
 		styles:styles,
+		mapName:mapName,
 		postedBy:id
 		});
 

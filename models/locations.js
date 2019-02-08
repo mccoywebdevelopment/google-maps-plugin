@@ -20,6 +20,7 @@ var locationSchema =new mongoose.Schema({
 	styles:{
 		isBlack:Boolean
 	},
+	mapName:String,
 	dataKey:String,
 	postedBy: {
 		type: mongoose.Schema.Types.ObjectId,

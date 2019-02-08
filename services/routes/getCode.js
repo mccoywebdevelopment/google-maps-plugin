@@ -77,7 +77,7 @@ router.get("/getCode",isLoggedIn,function(req,res){
 						   "\n</iframe>";
 			}
 			else{
-				var code = "\n<iframe style='width:800px;height: 400px;' src='https://gmapsmccoy.herokuapp.com/userData/"+data[0].dataKey+"'>"+
+				var code = "\n<iframe style='width:800px;height: 400px;' src='https://gmapsmccoy.herokuapp.com/userData/"+data[0].dataKey+"'>"+  //Change!!!!!!!!=========================
 						   "\n</iframe>";					
 			}
 			res.render("getCode.ejs",{html:code,isLoggedIn:check.isUserLoggedOn(req,res)});
@@ -99,7 +99,7 @@ router.get("/userData/:requestId",function(req,res){ //get locations goes here
         	variables=variables.replace(/(\r\n|\n|\r)/gm, "");
         	var scriptTags="<script>"+variables+"</script>";
 
-        	var basicMap="<script src='http://localhost:3000/js/basicMap.js'></script>";
+        	var basicMap="<script src='http://localhost:3000/js/basicMap.js'></script>";                                       //Change!!!!!!!!=========================
 
         	var myKey="https://maps.googleapis.com/maps/api/js?key="+_key+"&libraries=places&callback=initMap";
         	var script="<script src=\""+myKey+"\" async defer></script>";
@@ -168,6 +168,7 @@ function registerUser(req,res,userModel,sessionDataModel,locationsModel,crypto,p
         			locations:locations,
         			dataKey:idKey,
         			styles:data.styles,
+        			mapName:data.mapName,
         			postedBy:currentUser
 
         		});

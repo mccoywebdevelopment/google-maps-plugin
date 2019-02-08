@@ -184,3 +184,16 @@ li{
 	opacity: 0.5;
 }
 html, body {margin: 0; height: 100%; overflow: hidden}
+.inputBlue{
+	background-color: transparent!important;
+	border-color: #6078EA!important;
+	border:none;
+	border-bottom: solid;
+	border-radius: 3px;
+}
+.inputBlue>textarea:focus, input:focus,::placeholder {
+	color: #6078EA!important;
+    outline: none;
+    text-align: center;
+}
+
