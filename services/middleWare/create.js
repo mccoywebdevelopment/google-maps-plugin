@@ -13,13 +13,11 @@ function saveToDatabaseWithObject(req,locations,styles,mapName,sessionDataModel,
 	if(req.user!=null)
 	{
 		createUserLocation(req.user.id,locationModel,locations,styles,mapName,uniqueId,function(data){
-			console.log("createUserLocation");
 			callback(data);
 		});
 	}
 	else{
 		createSessionLocation(req.session.id,sessionDataModel,locations,styles,mapName,uniqueId,function(data){
-			console.log("createSessionLocation");
 			callback(data);
 		});
 	}

@@ -14,10 +14,6 @@ var session = require('express-session');
 var path=require('path');
 const app=express();
 
-//requiring routes
-
-
-
 var PORT=3000;
 
 if(process.env.PORT && process.env.MONGODB_URI.toString())
@@ -27,30 +23,17 @@ if(process.env.PORT && process.env.MONGODB_URI.toString())
 }
 else{
   PORT=3000;
-  mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds221115.mlab.com:21115/testgmaps",function(err) {
+  mongoose.connect("",function(err) {
     if (err) throw err;
 });
 }
 
 
-
-/*mongoose.connect("mongodb://Admin:!Stephmybaby72517@ds053954.mlab.com:53954/flash_app",function(err) {
-    if (err) throw err;
-});*/
-
 app.use(cookieParser());
-app.use(session({
-    secret: 'alksdjfl;akdjf;lajfijl;aejiovong490492420943u02lksadjl;af;l', // just a long random string
-    resave: false,
-    saveUninitialized: true
-}));
 
-//app.use(bodyParser.urlencoded({extended: true}));
-//app.set("view engine", "ejs");
-//app.use(express.static(__dirname + "/public"));
- app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended: false}));
-  app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(require("express-session")({
@@ -75,8 +58,9 @@ var locationsInput=require('./services/routes/locationsInput');
 var loginAndRegister=require('./services/routes/mainLoginAndRegister');
 var test=require('./services/routes/test');
 var getCode=require('./services/routes/getCode');
+var googleStrategy=require('./services/routes/googleStrategy');
 
-app.use(homePage,locationsInput,getCode,loginAndRegister,test,isLoggedIn);
+app.use(homePage,locationsInput,googleStrategy,getCode,loginAndRegister,test,isLoggedIn);
 
 app.listen( process.env.PORT || 3000,function() {
     console.log("Listening on Port:"+PORT);

@@ -13,9 +13,10 @@ var fs = require("fs");
 var passport = require("passport");
 var crypto = require("crypto");
 var check=require('../middleWare/isUserLoggedOn');
+var keys=require('../../config/config.js');
 
 //Make sure this key is correct & if changed update all users with valid parameters
-var _key="AIzaSyCJyl_DjWAyQrgaRq_xAQjhPb22zUoi_xw";
+var _key=keys.GOOGLE_KEY;
 
 router.get('/loginOrRegister/:errorId',function (req,res) {
 	var errorId=req.params.errorId;

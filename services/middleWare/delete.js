@@ -28,7 +28,6 @@ function deleteByUserPlaceId(id,userModel,placeId,callback){
 				if(data[0].locations[i].placeId==placeId)
 				{
 					match=true;
-					console.log("Found match by placeId");
 					newData=data[0].locations[i];
 				}
 			}
@@ -50,7 +49,6 @@ function deleteBySessionPlaceId(id,sessionModel,selectedPlace,callback){
     		callback(null);
     	}
     	else{
-    		console.log(data);
     		callback(true);
     	}
     }

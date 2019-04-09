@@ -4,7 +4,7 @@ var check=require('../middleWare/isUserLoggedOn');
 var router  = express.Router();
 
 router.get("/",function(req,res){
-	console.log(check.isUserLoggedOn(req,res));
+	//console.log(check.isUserLoggedOn(req,res));
 	res.render("homePage.ejs",{isLoggedIn:check.isUserLoggedOn(req,res)});
 });
 
