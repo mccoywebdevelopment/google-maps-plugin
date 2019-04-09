@@ -13,6 +13,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var path=require('path');
 const app=express();
+var key=require('./config/config');
 
 var PORT=3000;
 
@@ -23,7 +24,7 @@ if(process.env.PORT && process.env.MONGODB_URI.toString())
 }
 else{
   PORT=3000;
-  mongoose.connect("",function(err) {
+  mongoose.connect(key.MONGODB_KEY,function(err) {
     if (err) throw err;
 });
 }
@@ -37,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(require("express-session")({
-    secret: "my jalos slkdefgrbrfgdargajf;al l",
+    secret: key.SESSION_KEY,
     resave: false,
     saveUninitialized: false
 }));
